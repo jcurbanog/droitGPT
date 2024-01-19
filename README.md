@@ -42,6 +42,7 @@ French Legal Codes in markdown format
     - The quality of the requested context may not be good.
 
 # TODO
+- Prompt Engineering
 - Use a much larger language model pre-trained in a much larger French corpus
 - Use Ollama embeddings model for FAISS
 
