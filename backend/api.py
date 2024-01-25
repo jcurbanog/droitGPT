@@ -26,10 +26,9 @@ class droitGPT(Resource):
     @api.expect(model_query)
     @api.marshal_with(model_response)
     def post(self):
-        lazy_init_retrieval_chain()  # Ensure initialization on every request (although it will only happen once)
-        data = api.payload
-        query = data.get("query")
-        response = retrieval_chain.invoke({"input": query})
+        lazy_init_retrieval_chain()
+        input = api.payload.get("query")
+        response = retrieval_chain.invoke({"input": input})
         return {'response':get_answer_from_response(response)}
 
 if __name__ == '__main__':
