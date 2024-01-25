@@ -6,9 +6,11 @@ from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
+import os
 
 from preprocess import create_docs, clean_data
 
+DO_INDEXING = False
 MAX_NEW_TOKENS = 8192
 MODEL_ID = "Qwen/Qwen-1_8B-Chat-Int4"
 TEMPLATE = """
@@ -34,24 +36,24 @@ def llm_init():
     embeddings_model_id = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_id)
 
-    data_folder = "data"
-    relevant_files = ["travail.md", "education.md", "electoral.md"]
-    clean_data_folder_name = "clean_data"
-    clean_data(data_folder, relevant_files, clean_data_folder_name)
+    faiss_index_path = "./faiss_index"
+    if os.path.exists(faiss_index_path) and os.path.isdir(faiss_index_path) and not DO_INDEXING:
+        vector = FAISS.load_local(faiss_index_path, embeddings)
+    else:
+        data_folder = "data"
+        relevant_files = ["travail.md", "education.md", "electoral.md"]
+        clean_data_folder_name = "clean_data"
+        clean_data(data_folder, relevant_files, clean_data_folder_name)
 
-    docs = create_docs(clean_data_folder_name)
-    vector = FAISS.from_documents(docs, embeddings)
+        docs = create_docs(clean_data_folder_name)
+        vector = FAISS.from_documents(docs, embeddings)
+        vector.save_local("faiss_index")
 
     retrieval_chain = create_retrieval_chain(vector.as_retriever(), document_chain)
     return retrieval_chain
 
 def get_answer_from_response(response):
     return response["answer"]
-
-def get_context_from_response(response):
-    contexts = response["context"]
-    return [doc.page_content for doc in contexts]
-
 
 if __name__ == "__main__":
     llm_init()
