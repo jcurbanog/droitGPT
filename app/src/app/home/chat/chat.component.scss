@@ -10,12 +10,18 @@
 	width: 100%;
 }
 
+.messages {
+	height: 100%;
+}
+
 .container {
 	display: flex;
 	height: 100%;
 	flex-direction: column;
 	justify-content: flex-end;
-	padding: 8px 16px;
+	gap: 12px;
+	overflow: scroll;
+	padding: 8px 0px;
 }
 
 .sendMessage {
@@ -23,4 +29,5 @@
 	justify-content: center;
 	align-items: center;
 	gap: 8px;
+	padding: 0px 16px;
 }
