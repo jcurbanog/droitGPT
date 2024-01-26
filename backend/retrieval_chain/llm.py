@@ -85,7 +85,7 @@ class VectorDatabase:
         else:
             self.clean_data()
             self.add_docs()
-            self.db = FAISS.from_documents(docs, self.embeddings)
+            self.db = FAISS.from_documents(self.docs, self.embeddings)
             self.db.save_local(self.storage_path)
     
     
