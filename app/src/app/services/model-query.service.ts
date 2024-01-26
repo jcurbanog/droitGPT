@@ -18,11 +18,10 @@ export class ModelQueryService {
 
 	public singleResponse(query: string): Promise<Response> {
 		const body = { query: query }
+		const options = { headers: this.headers }
 
 		return new Promise<Response>((resolve) => {
-			this.http
-				.post<Response>(this.apiUrl, body, { headers: this.headers })
-				.subscribe((answer: Response) => resolve(answer))
+			this.http.post<Response>(this.apiUrl, body, options).subscribe((answer: Response) => resolve(answer))
 		})
 	}
 }

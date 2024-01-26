@@ -34,7 +34,6 @@ export class InputMessageComponent {
 	}
 
 	protected inputChanged(): void {
-		console.log('inputChanged')
 		const newValue = this.textArea?.nativeElement.value || ''
 		this.inputForm.setValue(newValue, { emitEvent: false })
 		if (this.wrapper) {
