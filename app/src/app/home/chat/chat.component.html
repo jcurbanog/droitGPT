@@ -1,8 +1,10 @@
 <div class="container">
-	<app-messages></app-messages>
+	<app-messages class="messages" [messages]="messages"></app-messages>
 	<div class="sendMessage">
-		<app-input-message class="input" />
-		<ng-container *ngTemplateOutlet="sendIcon"></ng-container>
+		<app-input-message [inputForm]="inputForm" class="input" />
+		<div class="icon" (click)="sendMessage()">
+			<ng-container *ngTemplateOutlet="sendIcon"></ng-container>
+		</div>
 	</div>
 </div>
 

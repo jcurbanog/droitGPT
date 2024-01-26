@@ -1,4 +1,7 @@
 <div class="container">
-	<app-message></app-message>
-	<app-message></app-message>
+	@for (message of messages; track $index) {
+	<div class="message" [ngClass]="message.type === 'question' ? '-right' : '-left'">
+		{{ message.content }}
+	</div>
+	}
 </div>
