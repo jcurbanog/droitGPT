@@ -1,32 +1,25 @@
 import os
 import re
-from typing import List
+from typing import List, Tuple
 
+from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 from langchain_community.llms.huggingface_pipeline import HuggingFacePipeline
-from langchain.prompts import PromptTemplate
-from langchain.prompts import PromptTemplate
+from langchain.prompts import PromptTemplate, ChatPromptTemplate
+from langchain_core.prompts import MessagesPlaceholder
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain.chains import create_retrieval_chain
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import TextLoader
 from langchain_core.documents import Document
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from langchain.chains import create_history_aware_retriever
+from langchain_core.prompts import MessagesPlaceholder
+from langchain_core.messages import HumanMessage, AIMessage
 
 
 
 MAX_NEW_TOKENS = 8192
 MODEL_ID = "Qwen/Qwen-1_8B-Chat-Int8"
-PROMPT_TEMPLATE = """
-Vous êtes un assistant spécialisé en codes juridiques français.
-
-Utilisez les informations suivantes pour répondre à la question:
-{context}
-
-Question: {input}
-
-Réponse: En utilisant le contexte, répondre à la question.
-"""
 
 EMBEDDINGS_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
@@ -85,7 +78,7 @@ class VectorDatabase:
         else:
             self.clean_data()
             self.add_docs()
-            self.db = FAISS.from_documents(docs, self.embeddings)
+            self.db = FAISS.from_documents(self.docs, self.embeddings)
             self.db.save_local(self.storage_path)
     
     
@@ -136,30 +129,57 @@ class VectorDatabase:
         self.docs = docs
 
 
-class RetrievalChain:
-    def __init__(self, 
-                 prompt_template: str, 
-                 llm_pipe: HuggingFacePipeline, 
-                 vector_database: FAISS):
-        self.prompt_template = prompt_template
+class droitGPT:
+    def __init__(
+            self, 
+            llm_pipe: HuggingFacePipeline, 
+            vector_database: VectorDatabase):
         self.llm_pipe = llm_pipe
-        self.vector_database = vector_database
+        self.retriever = vector_database.db.as_retriever()
         self.retrieval_chain = None
-
+    
+    def get_prompt_context(self) -> ChatPromptTemplate:
+        return ChatPromptTemplate.from_messages([
+            # MessagesPlaceholder(variable_name="chat_history"),
+            ("user", "{input}"),
+            # ("user", "Générez une requête afin d'obtenir des informations pertinentes pour la question de l'utilisateur")
+        ])
+    
+    def get_prompt_answer(self):
+        return ChatPromptTemplate.from_messages([
+            ("system", "Vous êtes un assistant spécialisé en codes juridiques français."),
+            # ("system", "Voici la conversation entre vous et l'utilisateur:\n"),
+            MessagesPlaceholder(variable_name="chat_history"),
+            ("system", "Information pour répondre au question de l'utilisateur:\n{context}"),
+            ("user", "{input}"),
+            ("system", "Répondez en français en utilisant le contexte et la conversation "),
+        ])
+    
     def create(self):
-        prompt = PromptTemplate.from_template(self.prompt_template)
-        document_chain = create_stuff_documents_chain(self.llm_pipe, prompt)
-        self.retrieval_chain = create_retrieval_chain(self.vector_database.db.as_retriever(), document_chain)
+        prompt_context = self.get_prompt_context()
+        retriever_chain = create_history_aware_retriever(self.llm_pipe, self.retriever, prompt_context)
 
-    def answer(self, input: str, is_multiple: bool = False) -> List[str]:
+        prompt_answer = self.get_prompt_answer()
+        document_chain = create_stuff_documents_chain(self.llm_pipe, prompt_answer)
+        
+        retrieval_chain = create_retrieval_chain(retriever_chain, document_chain)
+        self.retrieval_chain = retrieval_chain
+
+    @staticmethod
+    def build_chat_history(conversation: List[Tuple[str,str]]) -> List[HumanMessage|AIMessage]:
+        return [HumanMessage(content=speaker_text["text"]) if speaker_text["speaker"] == "user" else AIMessage(content=speaker_text["text"]) for speaker_text in conversation]
+
+    def answer(self, input: str, conversation: List[Tuple[str,str]], is_multiple: bool = False) -> List[str]:
         assert self.retrieval_chain, f"Chain has not been created yet!"
+        
+        chat_history = self.build_chat_history(conversation)
         n = 3 if is_multiple else 1
-        outputs = [self.retrieval_chain.invoke({"input": input}) for _ in range(n)]
+        outputs = [self.retrieval_chain.invoke({"chat_history": chat_history,"input": input}) for _ in range(n)]
         answers = [o["answer"] for o in outputs]
         return answers
 
 
-def retrieval_chain_init() -> RetrievalChain:
+def droitGPT_init() -> droitGPT:
     llm_pipe_factory = LLMPipelineFactory(model_id = MODEL_ID, max_new_tokens = MAX_NEW_TOKENS)
     llm_pipe = llm_pipe_factory.create()
 
@@ -173,13 +193,11 @@ def retrieval_chain_init() -> RetrievalChain:
                                      files_for_indexing=FILES_FOR_INDEXING)
     vector_database.create_or_load()
 
-    retrieval_chain = RetrievalChain(prompt_template=PROMPT_TEMPLATE, 
-                                                    llm_pipe=llm_pipe, 
-                                                    vector_database=vector_database)
+    retrieval_chain = droitGPT(llm_pipe=llm_pipe, vector_database=vector_database)
     retrieval_chain.create()
 
     return retrieval_chain
 
 
 if __name__ == "__main__":
-    retrieval_chain_init()
+    droitGPT_init()

@@ -1,13 +1,15 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
 
-from retrieval_chain.llm import retrieval_chain_init
+from assistant.retriever_chain import droitGPT_init
 
 app = Flask(__name__)
 api = Api(app)
 
+speaker_text = api.model('Speaker Text', {"speaker": fields.String(), "text": fields.String})
 model_query = api.model('Query Model', {
-    'query': fields.String,
+    'input': fields.String,
+    'conversation': fields.List(fields.Nested(speaker_text))
 })
 
 model_response = api.model('Response Model', {
@@ -19,7 +21,7 @@ retrieval_chain = None
 def lazy_init_retrieval_chain():
     global retrieval_chain
     if retrieval_chain is None:
-        retrieval_chain = retrieval_chain_init() 
+        retrieval_chain = droitGPT_init() 
 
 @api.route('/single_response')
 class SingleResponse(Resource):   
@@ -27,8 +29,9 @@ class SingleResponse(Resource):
     @api.marshal_with(model_response)
     def post(self):
         lazy_init_retrieval_chain()
-        input = api.payload.get("query")
-        response = retrieval_chain.answer(input)
+        input = api.payload.get("input")
+        conversation = api.payload.get("conversation")
+        response = retrieval_chain.answer(input=input, conversation=conversation)
         return {'response':response}
 
 @api.route('/multiple_response')
@@ -37,8 +40,9 @@ class MultipleResponse(Resource):
     @api.marshal_with(model_response)
     def post(self):
         lazy_init_retrieval_chain()
-        input = api.payload.get("query")
-        response = retrieval_chain.answer(input, is_multiple=True)
+        input = api.payload.get("input")
+        conversation = api.payload.get("conversation")
+        response = retrieval_chain.answer(input=input, conversation=conversation, is_multiple=True)
         return {'response':response}
 
 @api.route('/test_response')
