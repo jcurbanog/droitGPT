@@ -2,5 +2,5 @@ venv/
 data/
 clean_data/
 backend/__pycache__
-backend/retrieval_chain/__pycache__
+backend/assistant/__pycache__
 faiss_index
