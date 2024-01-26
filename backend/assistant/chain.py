@@ -16,21 +16,7 @@ from langchain.chains import create_history_aware_retriever
 from langchain_core.prompts import MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 
-
-
-MAX_NEW_TOKENS = 8192
-MODEL_ID = "Qwen/Qwen-1_8B-Chat-Int8"
-
-EMBEDDINGS_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-
-VECTOR_DATABASE_PATH = "./faiss_index"
-DATA_FOLDER = "data"
-CLEAN_DATA_FOLDER = "clean_data"
-FILES_FOR_INDEXING = ["travail.md", "education.md", "electoral.md"]
-DO_INDEXING = False
-"""
-Set this to True to force indexing docs to database
-"""
+from config import Config
 
 
 class LLMPipelineFactory:
@@ -59,12 +45,12 @@ class EmbeddingsFactory:
     
 class VectorDatabase:
     def __init__(self, embeddings: HuggingFaceEmbeddings, 
-                 storage_path: str, 
+                 vector_db_path: str, 
                  data_folder: str, 
                  clean_data_folder: str, 
                  files_for_indexing: List[str]):
         self.embeddings = embeddings
-        self.storage_path = storage_path
+        self.vector_db_path = vector_db_path
         self.data_folder = data_folder
         self.clean_data_folder = clean_data_folder
         self.files_for_indexing = files_for_indexing
@@ -73,13 +59,13 @@ class VectorDatabase:
         
 
     def create_or_load(self):
-        if os.path.exists(self.storage_path) and os.path.isdir(self.storage_path) and not DO_INDEXING:
-            self.db = FAISS.load_local(self.storage_path, self.embeddings)
+        if (os.path.exists(self.vector_db_path) and os.path.isdir(self.vector_db_path)) or not Config.DO_INDEXING:
+            self.db = FAISS.load_local(self.vector_db_path, self.embeddings)
         else:
             self.clean_data()
             self.add_docs()
             self.db = FAISS.from_documents(self.docs, self.embeddings)
-            self.db.save_local(self.storage_path)
+            self.db.save_local(self.vector_db_path)
     
     
     def clean_data(self):
@@ -178,17 +164,17 @@ class droitGPT:
 
 
 def droitGPT_init() -> droitGPT:
-    llm_pipe_factory = LLMPipelineFactory(model_id = MODEL_ID, max_new_tokens = MAX_NEW_TOKENS)
+    llm_pipe_factory = LLMPipelineFactory(model_id = Config.MODEL_ID, max_new_tokens = Config.MAX_NEW_TOKENS)
     llm_pipe = llm_pipe_factory.create()
 
-    embeddings_factory = EmbeddingsFactory(model_name = EMBEDDINGS_MODEL_NAME)
+    embeddings_factory = EmbeddingsFactory(model_name = Config.EMBEDDINGS_MODEL_NAME)
     embeddings = embeddings_factory.create()
 
     vector_database = VectorDatabase(embeddings=embeddings, 
-                                     storage_path=VECTOR_DATABASE_PATH, 
-                                     data_folder=DATA_FOLDER, 
-                                     clean_data_folder=CLEAN_DATA_FOLDER, 
-                                     files_for_indexing=FILES_FOR_INDEXING)
+                                     vector_db_path=Config.VECTOR_DATABASE_PATH, 
+                                     data_folder=Config.DATA_FOLDER, 
+                                     clean_data_folder=Config.CLEAN_DATA_FOLDER, 
+                                     files_for_indexing=Config.FILES_FOR_INDEXING)
     vector_database.create_or_load()
 
     conversational_retrieval_chain = droitGPT(llm_pipe=llm_pipe, vector_database=vector_database)
