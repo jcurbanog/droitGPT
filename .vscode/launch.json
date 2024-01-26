@@ -13,7 +13,7 @@
             "justMyCode": true
         },
         {
-            "name": "Backend",
+            "name": "Flask",
             "type": "python",
             "request": "launch",
             "program": "${workspaceFolder}/backend/api.py",

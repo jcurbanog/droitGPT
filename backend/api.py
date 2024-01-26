@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
 
-from llm import llm_init, get_answer_from_response
+from retrieval_chain.llm import retrieval_chain_init
 
 app = Flask(__name__)
 api = Api(app)
@@ -19,7 +19,7 @@ retrieval_chain = None
 def lazy_init_retrieval_chain():
     global retrieval_chain
     if retrieval_chain is None:
-        retrieval_chain = llm_init() 
+        retrieval_chain = retrieval_chain_init() 
 
 @api.route('/query')
 class droitGPT(Resource):   
@@ -28,8 +28,8 @@ class droitGPT(Resource):
     def post(self):
         lazy_init_retrieval_chain()
         input = api.payload.get("query")
-        response = retrieval_chain.invoke({"input": input})
-        return {'response':get_answer_from_response(response)}
+        response = retrieval_chain.answer(input)
+        return {'response':response}
 
 @api.route('/test_query')
 class droitGPT(Resource):   

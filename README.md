@@ -19,7 +19,7 @@ French Legal Codes in markdown format
 - Research for tools that allow create prototypes for context-aware applications
 
 # Technologies
-- LLM: [Qwen/Qwen-1_8B-Chat-Int4](https://huggingface.co/Qwen/Qwen-1_8B-Chat-Int4)
+- LLM: [Qwen/Qwen-1_8B-Chat-Int8](https://huggingface.co/Qwen/Qwen-1_8B-Chat-Int8)
     - model proposed by Alibaba Cloud
     - AI assistant trained with alignment techniques
     - Int4 quantized version (low-cost deployment)
