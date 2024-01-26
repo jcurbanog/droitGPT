@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
 
-from assistant.retriever_chain import droitGPT_init
+from backend.assistant.chain import droitGPT_init
 
 app = Flask(__name__)
 api = Api(app)

@@ -128,7 +128,6 @@ class VectorDatabase:
                 docs.append(Document(page_content = text, metadata=doc.metadata))
         self.docs = docs
 
-
 class droitGPT:
     def __init__(
             self, 
@@ -142,7 +141,6 @@ class droitGPT:
         return ChatPromptTemplate.from_messages([
             # MessagesPlaceholder(variable_name="chat_history"),
             ("user", "{input}"),
-            # ("user", "Générez une requête afin d'obtenir des informations pertinentes pour la question de l'utilisateur")
         ])
     
     def get_prompt_answer(self):
@@ -152,7 +150,7 @@ class droitGPT:
             MessagesPlaceholder(variable_name="chat_history"),
             ("system", "Information pour répondre au question de l'utilisateur:\n{context}"),
             ("user", "{input}"),
-            ("system", "Répondez en français en utilisant le contexte et la conversation "),
+            ("system", "Réponse en français:"),
         ])
     
     def create(self):
@@ -193,10 +191,10 @@ def droitGPT_init() -> droitGPT:
                                      files_for_indexing=FILES_FOR_INDEXING)
     vector_database.create_or_load()
 
-    retrieval_chain = droitGPT(llm_pipe=llm_pipe, vector_database=vector_database)
-    retrieval_chain.create()
+    conversational_retrieval_chain = droitGPT(llm_pipe=llm_pipe, vector_database=vector_database)
+    conversational_retrieval_chain.create()
 
-    return retrieval_chain
+    return conversational_retrieval_chain
 
 
 if __name__ == "__main__":
