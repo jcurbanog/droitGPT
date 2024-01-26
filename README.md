@@ -27,7 +27,7 @@ French Legal Codes in markdown format
     - Friendly to multiple languages
 
 - Vector Database: [FAISS](https://github.com/facebookresearch/faiss)
-    - Efficient similarity search 
+    - Efficient similarity search
     - Supported by CUDA
 
 - Sentence Transformer: [paraphrase-multilingual-MiniLM-L12-v2](https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2#sentence-transformersparaphrase-multilingual-minilm-l12-v2)
@@ -46,6 +46,11 @@ French Legal Codes in markdown format
 - Use a much larger language model pre-trained in a much larger French corpus
 - Use Ollama embeddings model for FAISS
 
+# Set up
+- [Install Node.JS](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-overview) 18.13 or higher
+- Set up a python virtual environment `python -m venv venv && source venv/bin/activate`
+- Do `cat requirements.txt | xargs -n 1 pip install`. if some package could not be installed due to the version, do it manually
+- Finally, you can run the app through `make run`
 
 # Other Resources
 - [LangChain Quickstart](https://python.langchain.com/docs/get_started/quickstart)

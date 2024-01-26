@@ -3,7 +3,7 @@
 run-backend:
 	. venv/bin/activate && python backend/api.py
 run-frontend:
-	cd app && ng serve
+	cd app && npm install && ng serve
 
 run:
-	npm start
+	npm start && npm install
