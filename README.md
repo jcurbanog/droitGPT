@@ -50,7 +50,7 @@ French Legal Codes in markdown format
 - [Install Node.JS](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-overview) 18.13 or higher
 - Set up a python virtual environment `python -m venv venv && source venv/bin/activate`
 - Do `cat requirements.txt | xargs -n 1 pip install`. if some package could not be installed due to the version, do it manually
-- Finally, you can run the app through `make run`
+- Finally, after leaving the `venv` through `deactivate`, you can run the app at the root directory through `make run`
 
 # Other Resources
 - [LangChain Quickstart](https://python.langchain.com/docs/get_started/quickstart)
