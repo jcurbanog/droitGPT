@@ -1,0 +1,26 @@
+.inputWrapper {
+	display: grid;
+}
+
+.inputWrapper::after {
+	content: attr(data-replicated-value) ' ';
+	visibility: hidden;
+}
+.input {
+	resize: none;
+	overflow: scroll;
+}
+.input,
+.inputWrapper::after {
+	border: 2px solid #ccc;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	max-width: var(--max-width-message-input);
+	max-height: 500px;
+	box-sizing: border-box;
+	word-wrap: break-word;
+	padding: 12px 20px;
+	font: inherit;
+	grid-area: 1 / 1 / 2 / 2;
+	outline: none;
+}
