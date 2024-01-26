@@ -9,7 +9,7 @@ class Config:
         sys.path.insert(0, BASE_DIR)
 
     MAX_NEW_TOKENS = 8192
-    MODEL_ID = "Qwen/Qwen-1_8B-Chat-Int8"
+    MODEL_ID = "Qwen/Qwen-1_8B-Chat-Int4"
 
     EMBEDDINGS_MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 
