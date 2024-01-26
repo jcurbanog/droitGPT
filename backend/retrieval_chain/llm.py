@@ -151,10 +151,12 @@ class RetrievalChain:
         document_chain = create_stuff_documents_chain(self.llm_pipe, prompt)
         self.retrieval_chain = create_retrieval_chain(self.vector_database.db.as_retriever(), document_chain)
 
-    def answer(self, input: str) -> str:
+    def answer(self, input: str, is_multiple: bool = False) -> List[str]:
         assert self.retrieval_chain, f"Chain has not been created yet!"
-        output : str = self.retrieval_chain.invoke({"input": input})
-        return output["answer"]
+        n = 3 if is_multiple else 1
+        outputs = [self.retrieval_chain.invoke({"input": input}) for _ in range(n)]
+        answers = [o["answer"] for o in outputs]
+        return answers
 
 
 def retrieval_chain_init() -> RetrievalChain:
