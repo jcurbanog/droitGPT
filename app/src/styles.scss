@@ -1,0 +1,14 @@
+@use 'color';
+
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	overflow-x: hidden; /* Block horizontal scroll */
+	color: color.$white;
+	margin: 0;
+}
+
+p {
+	margin: 0;
+}

@@ -1,0 +1,14 @@
+@use "color";
+
+.container {
+	height: 100vh;
+	background-color: color.$blueDarkest;
+	display: flex;
+	flex-direction: column;
+}
+
+.chat {
+	color: color.$white;
+	background-color: color.$blueDarkest;
+	align-self: center;
+}

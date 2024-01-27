@@ -1,0 +1,33 @@
+@use 'color';
+
+:host {
+	overflow-y: scroll;
+}
+
+.container {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	padding: 0px 16px;
+	gap: 24px;
+}
+
+.message {
+	padding: 12px 20px;
+	width: 70%;
+
+	&.-left {
+		align-self: flex-start;
+		border: solid 1px transparent;
+		border-radius: 4px;
+		background-color: color.$blueLighter;
+	}
+
+	&.-right {
+		align-self: flex-end;
+		border: solid 1px transparent;
+		border-radius: 4px;
+		background-color: color.$blueDarker;
+	}
+}

@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_restx import Resource, Api, fields
+from flask_cors import CORS
 
 from assistant.chain import droitGPT_init
 
 app = Flask(__name__)
+cors = CORS(app, resources={r'/*': {'origins': 'http://localhost:4200'}})
 api = Api(app)
 
 speaker_text = api.model('Speaker Text', {"speaker": fields.String(), "text": fields.String})
@@ -21,10 +23,10 @@ retrieval_chain = None
 def lazy_init_retrieval_chain():
     global retrieval_chain
     if retrieval_chain is None:
-        retrieval_chain = droitGPT_init() 
+        retrieval_chain = droitGPT_init()
 
 @api.route('/single_response')
-class SingleResponse(Resource):   
+class SingleResponse(Resource):
     @api.expect(model_query)
     @api.marshal_with(model_response)
     def post(self):
@@ -35,7 +37,7 @@ class SingleResponse(Resource):
         return {'response':response}
 
 @api.route('/multiple_response')
-class MultipleResponse(Resource):   
+class MultipleResponse(Resource):
     @api.expect(model_query)
     @api.marshal_with(model_response)
     def post(self):
@@ -46,7 +48,7 @@ class MultipleResponse(Resource):
         return {'response':response}
 
 @api.route('/test_response')
-class TestResponse(Resource):   
+class TestResponse(Resource):
     @api.expect(model_query)
     @api.marshal_with(model_response)
     def post(self):
