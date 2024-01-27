@@ -127,15 +127,21 @@ class droitGPT:
     def __init__(self, ai_assistant: AIAssistant, vector_database: VectorDatabase):
         self.ai_assistant = ai_assistant
         self.searcher = vector_database.searcher
-        self.system_prompt = "Vous êtes un assistant spécialisé dans les codes juridiques français."
+        self.system_prompt = (
+            "Vous êtes un assistant spécialisé dans les codes juridiques français."
+        )
 
     def get_additional_info(self, query: str, sim_threshold: float = 1.0) -> str:
         results = self.searcher.similarity_search_with_score(query)
         relevant_docs = [doc for doc, score in results if score <= sim_threshold]
+        if not relevant_docs:
+            return ""
         return "\n".join([doc.page_content for doc in relevant_docs])
 
     def enrich_input(self, input: str):
         additional_info = self.get_additional_info(query=input)
+        if not additional_info:
+            return input
         return input + "\nÉtant donné que:\n" + additional_info + "\n"
 
     def format_history(self, history):

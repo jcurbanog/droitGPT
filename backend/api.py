@@ -1,9 +1,8 @@
+from assistant.droitGPT import droitGPT_init
 from config import Config
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Api, Resource, fields
-
-from backend.assistant.droitGPT import droitGPT_init
 
 app = Flask(__name__)
 app.config.from_object(Config())
