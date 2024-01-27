@@ -24,10 +24,10 @@ export class ChatComponent {
 		const query = this.inputForm.value
 		if (query) {
 			this.inputForm.setValue('')
-			this.messages.push({ content: query, type: 'question' })
-			const response: Response = await this.modelService.singleResponse(query)
+			this.messages.push({ text: query, speaker: 'user' })
+			const response: Response = await this.modelService.singleResponse(query, this.messages.slice(0, -1))
 			if (response.response.length) {
-				this.messages.push({ content: response.response[0], type: 'answer' })
+				this.messages.push({ text: response.response[0], speaker: 'bot' })
 			}
 		}
 	}

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 
+import { Message } from '../home/chat/messages/messages.component'
+
 export interface Response {
 	response: string[]
 }
@@ -16,8 +18,8 @@ export class ModelQueryService {
 
 	constructor(private http: HttpClient) {}
 
-	public singleResponse(query: string): Promise<Response> {
-		const body = { query: query }
+	public singleResponse(query: string, messages: Message[]): Promise<Response> {
+		const body = { input: query, conversation: messages }
 		const options = { headers: this.headers }
 
 		return new Promise<Response>((resolve) => {
