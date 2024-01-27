@@ -18,7 +18,6 @@ class Config:
     PORT = int(os.getenv("PORT"))
     HOST = os.getenv("HOST")
 
-    LLM_MAX_NEW_TOKENS = int(os.getenv("LLM_MAX_NEW_TOKENS"))
     LLM_MODEL_ID = os.getenv("LLM_MODEL_ID")
 
     EMBEDDINGS_MODEL_NAME = os.getenv("EMBEDDINGS_MODEL_NAME")

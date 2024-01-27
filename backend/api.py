@@ -1,8 +1,9 @@
-from assistant.chain import droitGPT_init
 from config import Config
 from flask import Flask
 from flask_cors import CORS
 from flask_restx import Api, Resource, fields
+
+from backend.assistant.droitGPT import droitGPT_init
 
 app = Flask(__name__)
 app.config.from_object(Config())
@@ -10,10 +11,19 @@ app.config.from_object(Config())
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 api = Api(app)
 
-speaker_text = api.model("Speaker Text", {"speaker": fields.String(), "text": fields.String})
+model_qa = api.model(
+    "Question - Answer",
+    {
+        "user": fields.String,
+        "assistant": fields.String,
+    },
+)
 model_query = api.model(
     "Query Model",
-    {"input": fields.String, "conversation": fields.List(fields.Nested(speaker_text))},
+    {
+        "input": fields.String,
+        "conversation": fields.List(fields.Nested(model_qa)),
+    },
 )
 
 model_response = api.model(
