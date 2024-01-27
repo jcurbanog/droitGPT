@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common'
 import { MessageComponent } from './message/message.component'
 
 export interface Message {
-	content: string
-	type: 'question' | 'answer'
+	text: string
+	speaker: 'user' | 'bot'
 }
 @Component({
 	selector: 'app-messages',
