@@ -164,7 +164,7 @@ class droitGPT:
 
 
 def droitGPT_init() -> droitGPT:
-    llm_pipe_factory = LLMPipelineFactory(model_id = Config.MODEL_ID, max_new_tokens = Config.MAX_NEW_TOKENS)
+    llm_pipe_factory = LLMPipelineFactory(model_id = Config.LLM_MODEL_ID, max_new_tokens = Config.LLM_MAX_NEW_TOKENS)
     llm_pipe = llm_pipe_factory.create()
 
     embeddings_factory = EmbeddingsFactory(model_name = Config.EMBEDDINGS_MODEL_NAME)

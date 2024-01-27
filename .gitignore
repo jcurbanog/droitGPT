@@ -6,3 +6,4 @@ package-lock.json
 backend/__pycache__
 backend/assistant/__pycache__
 faiss_index
+*.env
