@@ -1,9 +1,11 @@
+@use 'color';
+
 .inputWrapper {
 	display: grid;
 }
 
 .inputWrapper::after {
-	content: attr(data-replicated-value) ' ';
+	content: attr(data-replicated-value) '';
 	visibility: hidden;
 }
 .input {
@@ -12,15 +14,80 @@
 }
 .input,
 .inputWrapper::after {
-	border: 2px solid #ccc;
-	border-radius: 4px;
-	background-color: #f8f8f8;
+	border: 1px solid color.$blackLightest;
+	border-radius: 8px;
+	background-color: color.$blackDarkest;
 	max-width: var(--max-width-message-input);
 	max-height: 500px;
 	box-sizing: border-box;
 	word-wrap: break-word;
-	padding: 12px 20px;
+	padding: 12px 32px 8px 20px;
 	font: inherit;
 	grid-area: 1 / 1 / 2 / 2;
 	outline: none;
+	color: white;
+}
+
+// .inputWrapper {
+// 	background-color: #2d2d2d;
+// 	padding: 0 15px;
+// 	border-radius: 10px;
+// 	border: 1px solid rgb(63, 63, 63);
+// }
+// .input,
+// .inputWrapper::after {
+// 	background-color: transparent;
+// 	outline: none;
+// 	border: none;
+// 	color: white;
+// }
+
+.messageBox {
+	width: fit-content;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #2d2d2d;
+	padding: 0 15px;
+	border-radius: 10px;
+	border: 1px solid rgb(63, 63, 63);
+}
+#messageInput {
+	width: 200px;
+	height: 100%;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	padding-left: 10px;
+	color: white;
+}
+#messageInput:focus ~ #sendButton svg path,
+#messageInput:valid ~ #sendButton svg path {
+	fill: #3c3c3c;
+	stroke: white;
+}
+
+#sendButton {
+	width: fit-content;
+	height: 100%;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s;
+}
+#sendButton svg {
+	height: 18px;
+	transition: all 0.3s;
+}
+#sendButton svg path {
+	transition: all 0.3s;
+}
+#sendButton:hover svg path {
+	fill: #3c3c3c;
+	stroke: white;
 }

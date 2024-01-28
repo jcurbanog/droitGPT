@@ -1,3 +1,5 @@
+@use 'color';
+
 :host {
 	width: 50%;
 	height: 100%;
@@ -21,7 +23,7 @@
 	justify-content: flex-end;
 	gap: 12px;
 	overflow: hidden;
-	padding: 8px 0px;
+	padding: 16px 0px;
 }
 
 .sendMessage {
@@ -30,4 +32,18 @@
 	align-items: center;
 	gap: 8px;
 	padding: 0px 16px;
+}
+
+.icon {
+	cursor: pointer;
+}
+
+.icon svg {
+	transition: all 0.3s;
+}
+.icon svg path {
+	transition: all 0.3s;
+}
+.icon:hover svg path {
+	stroke: color.$white;
 }
