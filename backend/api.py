@@ -10,18 +10,18 @@ app.config.from_object(Config())
 cors = CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 api = Api(app)
 
-model_qa = api.model(
-    "Question - Answer",
+model_message = api.model(
+    "Message",
     {
-        "user": fields.String,
-        "assistant": fields.String,
+        "speaker": fields.String,
+        "text": fields.String,
     },
 )
 model_query = api.model(
     "Query Model",
     {
         "input": fields.String,
-        "conversation": fields.List(fields.Nested(model_qa)),
+        "conversation": fields.List(fields.Nested(model_message)),
     },
 )
 

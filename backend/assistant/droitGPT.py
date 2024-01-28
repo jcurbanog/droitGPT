@@ -146,8 +146,11 @@ class droitGPT:
 
     def format_history(self, history):
         new_history = []
-        for qa in history:
-            new_history.append((qa["user"], qa["assistant"]))
+        assert len(history) % 2 == 0, f"Answer to last question missing!"
+        for i in range(0, len(history), 2):
+            assert history[i]["speaker"] == "user"
+            assert history[i + 1]["speaker"] == "bot"
+            new_history.append((history[i]["text"], history[i + 1]["text"]))
         return new_history
 
     def answer(
