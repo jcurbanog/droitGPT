@@ -6,7 +6,7 @@ python-format:
 	. backend/venv/bin/activate && isort --profile black . && black -t 'py310' --line-length=100 .
 
 run-frontend:
-	npm run start-frontend
+	cd app && npm run start-frontend
 
 run:
-	npm install && npm start
+	cd app && npm install && npm start
