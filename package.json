@@ -2,7 +2,9 @@
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.1.1",
     "@angular/cli": "^17.1.1",
-    "concurrently": "^8.2.2"
+    "@types/dotenv": "^8.2.0",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.1"
   },
   "scripts": {
     "start-backend": ". venv/bin/activate && python backend/api.py",

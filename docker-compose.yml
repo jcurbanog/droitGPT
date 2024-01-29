@@ -4,14 +4,14 @@ services:
   backend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: backend/Dockerfile
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
               count: all
-              capabilities: [gpu]
+              capabilities: [ gpu ]
     ports:
       - "5000:5000"
     environment:
@@ -20,3 +20,13 @@ services:
       - /dev/nvidia0:/dev/nvidia0
       - /dev/nvidia-uvm:/dev/nvidia-uvm
     command: python3 api.py
+    env_file:
+      - .env
+  frontend:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    ports:
+      - "4200:4200"
+    env_file:
+      - .env
