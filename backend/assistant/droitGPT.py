@@ -1,6 +1,6 @@
 import os
 import re
-from typing import List, Tuple
+from typing import List, Optional, Tuple
 
 from config import Config
 from langchain_community.document_loaders import TextLoader
@@ -12,36 +12,35 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class AIAssistant:
-    def __init__(self, model_id: str):
+    def __init__(self, model_id: Optional[str]):
         self.model_id = model_id
 
-        self.tokenizer = (
-            AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-            if Config.DOWNLOAD_MODELS
-            else AutoTokenizer.from_pretrained(Config.TOKENIZER_PATH)
-        )
-        self.model = (
-            AutoModelForCausalLM.from_pretrained(
-                self.model_id, device_map="auto", trust_remote_code=True
+        if not self.model_id:
+            self.tokenizer = AutoTokenizer.from_pretrained(
+                Config.TOKENIZER_PATH,
+                trust_remote_code=True,
+            )
+            self.model = AutoModelForCausalLM.from_pretrained(
+                Config.LLM_PATH,
+                device_map="auto",
+                trust_remote_code=True,
             ).eval()
-            if Config.DOWNLOAD_MODELS
-            else AutoModelForCausalLM.from_pretrained(Config.LLM_PATH, device_map="auto").eval()
-        )
+
+        else:
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
+            self.model = AutoModelForCausalLM.from_pretrained(
+                self.model_id,
+                device_map="auto",
+                trust_remote_code=True,
+            ).eval()
 
 
 class Embeddings:
     def __init__(self, model_name: str):
         self.model_name = model_name
-        self.model = (
-            HuggingFaceEmbeddings(
-                model_name=self.model_name,
-                model_kwargs={"device": "cuda"},
-            )
-            if Config.DOWNLOAD_MODELS
-            else HuggingFaceEmbeddings(
-                model_name=Config.EMBEDDINGS_MODEL_PATH,
-                model_kwargs={"device": "cuda"},
-            )
+        self.model = HuggingFaceEmbeddings(
+            model_name=self.model_name,
+            model_kwargs={"device": "cuda"},
         )
 
 
@@ -189,8 +188,14 @@ class droitGPT:
 
 
 def droitGPT_init() -> droitGPT:
-    ai_assistant = AIAssistant(model_id=Config.LLM_MODEL_ID)
-    embeddings = Embeddings(model_name=Config.EMBEDDINGS_MODEL_NAME)
+    ai_assistant = AIAssistant(model_id=Config.LLM_MODEL_ID if Config.DOWNLOAD_MODELS else None)
+    embeddings = Embeddings(
+        model_name=(
+            Config.EMBEDDINGS_MODEL_NAME
+            if Config.DOWNLOAD_MODELS
+            else Config.EMBEDDINGS_MODEL_PATH
+        )
+    )
     vector_database = VectorDatabase(
         embeddings=embeddings,
         vector_db_path=Config.VECTOR_DATABASE_PATH,
