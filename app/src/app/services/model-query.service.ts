@@ -7,6 +7,8 @@ export interface Response {
 	response: string[]
 }
 
+const PORT = process.env['PORT'] || 5000
+
 @Injectable({
 	providedIn: 'root',
 })
@@ -14,9 +16,15 @@ export class ModelQueryService {
 	private headers = new HttpHeaders({
 		'Content-Type': 'application/json',
 	})
-	private apiUrl = 'http://localhost:5000/'
 
-	constructor(private http: HttpClient) {}
+	private apiUrl: string
+
+	constructor(private http: HttpClient) {
+		// Set apiUrl based on the host where the app is running
+		const host = window.location.host.split(':')[0]
+		this.apiUrl = `http://${host}:${PORT}/`
+		console.log(this.apiUrl)
+	}
 
 	public request(endpoint: string, query: string, messages: Message[]): Promise<Response> {
 		const url = `${this.apiUrl}${endpoint}`
