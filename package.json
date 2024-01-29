@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start-backend": ". venv/bin/activate && python backend/api.py",
-    "start-frontend": "cd app && ng serve --open",
+    "start-frontend": "cd app && npm start",
     "start": "concurrently \"npm:start-backend\" \"npm:start-frontend\""
   }
 }
