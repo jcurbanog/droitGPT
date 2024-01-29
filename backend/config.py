@@ -19,6 +19,12 @@ class Config:
     PORT_FRONTEND = int(os.getenv("PORT_FRONTEND"))
     HOST = os.getenv("HOST")
 
+    # Set this to True once for downloading the models. Then switch to false
+    DOWNLOAD_MODELS = bool(os.getenv("DOWNLOAD_MODELS"))
+    EMBEDDINGS_MODEL_PATH = BASE_DIR + os.getenv("EMBEDDINGS_MODEL_PATH")
+    LLM_PATH = BASE_DIR + os.getenv("LLM_PATH")
+    TOKENIZER_PATH = BASE_DIR + os.getenv("TOKENIZER_PATH")
+
     LLM_MODEL_ID = os.getenv("LLM_MODEL_ID")
 
     EMBEDDINGS_MODEL_NAME = os.getenv("EMBEDDINGS_MODEL_NAME")

@@ -6,3 +6,6 @@ package-lock.json
 backend/__pycache__
 backend/assistant/__pycache__
 faiss_index
+llm
+tokenizer
+embeddings_model
