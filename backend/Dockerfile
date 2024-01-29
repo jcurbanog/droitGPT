@@ -27,4 +27,4 @@ COPY backend .
 EXPOSE 5000
 
 # Set the entry point
-CMD ["gunicorn", "api:app"]
+CMD ["python", "api.py"]
