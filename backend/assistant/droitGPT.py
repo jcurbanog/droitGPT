@@ -14,18 +14,34 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 class AIAssistant:
     def __init__(self, model_id: str):
         self.model_id = model_id
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_id, device_map="auto", trust_remote_code=True
-        ).eval()
+
+        self.tokenizer = (
+            AutoTokenizer.from_pretrained(self.model_id, trust_remote_code=True)
+            if Config.DOWNLOAD_MODELS
+            else AutoTokenizer.from_pretrained(Config.TOKENIZER_PATH)
+        )
+        self.model = (
+            AutoModelForCausalLM.from_pretrained(
+                self.model_id, device_map="auto", trust_remote_code=True
+            ).eval()
+            if Config.DOWNLOAD_MODELS
+            else AutoModelForCausalLM.from_pretrained(Config.LLM_PATH, device_map="auto").eval()
+        )
 
 
 class Embeddings:
     def __init__(self, model_name: str):
         self.model_name = model_name
-        self.model = HuggingFaceEmbeddings(
-            model_name=self.model_name,
-            model_kwargs={"device": "cuda"},
+        self.model = (
+            HuggingFaceEmbeddings(
+                model_name=self.model_name,
+                model_kwargs={"device": "cuda"},
+            )
+            if Config.DOWNLOAD_MODELS
+            else HuggingFaceEmbeddings(
+                model_name=Config.EMBEDDINGS_MODEL_PATH,
+                model_kwargs={"device": "cuda"},
+            )
         )
 
 
