@@ -14,16 +14,17 @@ export class ModelQueryService {
 	private headers = new HttpHeaders({
 		'Content-Type': 'application/json',
 	})
-	private apiUrl = 'http://localhost:5000/single_response'
+	private apiUrl = 'http://localhost:5000/'
 
 	constructor(private http: HttpClient) {}
 
-	public singleResponse(query: string, messages: Message[]): Promise<Response> {
+	public request(endpoint: string, query: string, messages: Message[]): Promise<Response> {
+		const url = `${this.apiUrl}${endpoint}`
 		const body = { input: query, conversation: messages }
 		const options = { headers: this.headers }
 
 		return new Promise<Response>((resolve) => {
-			this.http.post<Response>(this.apiUrl, body, options).subscribe((answer: Response) => resolve(answer))
+			this.http.post<Response>(url, body, options).subscribe((answer: Response) => resolve(answer))
 		})
 	}
 }

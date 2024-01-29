@@ -16,6 +16,7 @@ class Config:
     ENV = os.getenv("ENV")
     DEBUG = True if os.getenv("DEBUG") == "True" else False
     PORT = int(os.getenv("PORT"))
+    PORT_FRONTEND = int(os.getenv("PORT_FRONTEND"))
     HOST = os.getenv("HOST")
 
     LLM_MODEL_ID = os.getenv("LLM_MODEL_ID")

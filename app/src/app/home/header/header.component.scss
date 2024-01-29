@@ -1,3 +1,24 @@
+:host {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	align-items: center;
+	height: 32px;
+	padding: 4px 8px;
+}
+
+.empty {
+	grid-column: 1;
+}
+
 .title {
-	text-align: center;
+	display: flex;
+	grid-column: 2;
+	justify-content: center;
+}
+.selector {
+	display: flex;
+	grid-column: 3;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
 }

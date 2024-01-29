@@ -1,9 +1,9 @@
 :host {
-	border: solid 1px red;
 	width: 50%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	overflow: hidden;
 }
 
 .input {
@@ -20,7 +20,7 @@
 	flex-direction: column;
 	justify-content: flex-end;
 	gap: 12px;
-	overflow: scroll;
+	overflow: hidden;
 	padding: 8px 0px;
 }
 

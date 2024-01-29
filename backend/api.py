@@ -7,7 +7,7 @@ from flask_restx import Api, Resource, fields
 app = Flask(__name__)
 app.config.from_object(Config())
 
-cors = CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
+cors = CORS(app)
 api = Api(app)
 
 model_message = api.model(
