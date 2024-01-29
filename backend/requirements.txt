@@ -32,6 +32,7 @@ frozenlist==1.4.1
 fsspec==2023.10.0
 gekko==1.0.6
 greenlet==3.0.3
+gunicorn==21.2.0
 huggingface-hub==0.20.3
 humanfriendly==10.0
 icetk==0.0.7
