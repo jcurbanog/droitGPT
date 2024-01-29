@@ -13,9 +13,6 @@ RUN apt-get install -y python3.10 python3.10-dev python3-pip
 # Install Nvidia container toolkit
 # RUN apt-get install -y --no-install-recommends nvidia-container-toolkit
 
-# Clean up
-RUN rm -rf /var/lib/apt/lists/*
-
 # Copy the requirements file
 COPY backend/requirements.txt .
 
