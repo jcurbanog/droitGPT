@@ -13,7 +13,7 @@ export class InputMessageComponent {
 	@HostListener('window:resize', ['$event'])
 	public onResize(event: UIEvent): void {
 		if (event.target && event.target instanceof Window) {
-			this.maxInputWidth = `${event.target.innerWidth / 2}px`
+			this.maxInputWidth = `${event.target.innerWidth * 0.48}px`
 		}
 	}
 
