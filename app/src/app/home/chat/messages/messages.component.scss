@@ -16,6 +16,20 @@
 .message {
 	padding: 12px 20px;
 	width: 70%;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+
+	&_header {
+		display: flex;
+		gap: 6px;
+		align-items: center;
+	}
+
+	&_content {
+		font-size: 18px;
+		color: color.$whiteNormal;
+	}
 
 	&.-left {
 		align-self: flex-start;

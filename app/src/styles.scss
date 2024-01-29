@@ -9,10 +9,18 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	overflow-x: hidden; /* Block horizontal scroll */
-	color: color.$white;
+	color: color.$whiteLightest;
 	margin: 0;
+	font-family: 'Libre Baskerville';
 }
 
 p {
 	margin: 0;
+}
+
+@font-face {
+	font-family: 'Libre Baskerville';
+	src: url('./assets/LibreBaskerville-Regular.ttf');
+	font-weight: normal;
+	font-style: normal;
 }
