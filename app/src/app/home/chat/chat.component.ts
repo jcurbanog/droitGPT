@@ -19,12 +19,16 @@ export class ChatComponent {
 	@Input({ required: true }) public form!: FormGroup<QueryForm>
 
 	protected messages: Message[] = []
+	protected cachedMessages: Message[] = []
+	protected loading: boolean = false
 
 	constructor(private modelService: ModelQueryService) {}
 
 	protected async sendMessage(): Promise<void> {
 		const query = this.form.controls.input.value
-		if (query) {
+		if (query && !this.loading) {
+			this.loading = true
+			this.cachedMessages = []
 			this.form.controls.input.setValue('')
 			this.messages.push({ text: query, speaker: 'user' })
 			const response: Response = await this.modelService.request(
@@ -32,9 +36,15 @@ export class ChatComponent {
 				query,
 				this.messages.slice(0, -1)
 			)
+			this.loading = false
 			if (response.response.length) {
-				this.messages.push({ text: response.response[0], speaker: 'bot' })
+				this.messages.push({ text: response.response.pop()!, speaker: 'bot' })
+				this.cachedMessages = response.response.map((res) => ({ text: res, speaker: 'bot' }))
 			}
 		}
+	}
+
+	protected oneMore(): void {
+		this.messages.push(this.cachedMessages.pop()!)
 	}
 }
