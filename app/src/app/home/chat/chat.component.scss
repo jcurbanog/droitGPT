@@ -27,6 +27,7 @@
 }
 
 .sendMessage {
+	position: relative;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,7 +36,10 @@
 }
 
 .icon {
+	align-self: center;
 	cursor: pointer;
+	position: absolute;
+	right: 24px;
 }
 
 .icon svg {
