@@ -1,18 +1,20 @@
 <div class="container">
-	<app-messages class="messages" [messages]="messages" />
+	<div #messagesWrapper class="messagesWrapper">
+		<app-messages [messages]="messages" />
+	</div>
 	<div class="sendMessage">
 		<app-input-message [inputForm]="form.controls.input" class="input" />
-		<div class="icon" (click)="sendMessage()">
-			<ng-container *ngTemplateOutlet="sendIcon" />
+		<div class="icon" [class.-clickable]="!loading" (click)="sendMessage()">
+			<ng-container [ngTemplateOutlet]="loading ? loader : sendIcon" />
 		</div>
 	</div>
 </div>
 
 <ng-template #sendIcon>
 	<!-- https://www.svgrepo.com/svg/533310/send-alt-1 -->
-	<svg width="25px" height="25px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<svg width="32px" height="32px" viewBox="-2.4 -2.4 28.80 28.80" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g id="SVGRepo_bgCarrier" stroke-width="0">
-			<rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="14.4" fill="#ffffff" strokewidth="0"></rect>
+			<rect x="-2.4" y="-2.4" width="28.80" height="28.80" rx="14.4" strokewidth="0"></rect>
 		</g>
 		<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 		<g id="SVGRepo_iconCarrier">
@@ -25,4 +27,13 @@
 			></path>
 		</g>
 	</svg>
+</ng-template>
+
+<ng-template #loader>
+	<div class="loader">
+		<div class="circle"></div>
+		<div class="circle"></div>
+		<div class="circle"></div>
+		<div class="circle"></div>
+	</div>
 </ng-template>

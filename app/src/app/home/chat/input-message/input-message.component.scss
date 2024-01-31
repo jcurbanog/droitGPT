@@ -1,9 +1,12 @@
+@use 'color';
+@use 'variables';
+
 .inputWrapper {
 	display: grid;
 }
 
 .inputWrapper::after {
-	content: attr(data-replicated-value) ' ';
+	content: attr(data-replicated-value) '';
 	visibility: hidden;
 }
 .input {
@@ -12,15 +15,25 @@
 }
 .input,
 .inputWrapper::after {
-	border: 2px solid #ccc;
-	border-radius: 4px;
-	background-color: #f8f8f8;
-	max-width: var(--max-width-message-input);
+	--text-area-width: calc(100vw - 2 * (#{variables.$chatLateralPadding}));
+	border: 1px solid color.$blackLightest;
+	border-radius: 8px;
+	background-color: color.$blackDarkest;
+	width: var(--text-area-width);
+	max-width: var(--text-area-width);
 	max-height: 500px;
 	box-sizing: border-box;
 	word-wrap: break-word;
-	padding: 12px 20px;
+	padding: 12px 48px 8px 20px;
 	font: inherit;
 	grid-area: 1 / 1 / 2 / 2;
 	outline: none;
+	color: white;
+}
+
+@media screen and (min-width: 1200px) {
+	.input,
+	.inputWrapper::after {
+		--text-area-width: calc(50vw - 2 * (#{variables.$chatLateralPadding}));
+	}
 }

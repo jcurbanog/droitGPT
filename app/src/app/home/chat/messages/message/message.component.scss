@@ -1,0 +1,82 @@
+@use 'color';
+
+:host {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.message {
+	padding: 12px 20px 16px;
+	width: 70%;
+	display: flex;
+	flex-direction: column;
+	border: solid 1px transparent;
+	border-radius: 4px;
+	gap: 12px;
+
+	&_header {
+		display: flex;
+		gap: 6px;
+		align-items: center;
+	}
+
+	&_content {
+		font-size: 18px;
+		color: color.$whiteNormal;
+		white-space: pre-line;
+		word-wrap: break-word;
+	}
+
+	&.-left {
+		align-self: flex-start;
+		background-color: color.$blueLighter;
+	}
+
+	&.-right {
+		align-self: flex-end;
+		background-color: color.$blueDarker;
+	}
+}
+
+.button {
+	&_wrapper {
+		color: color.$whiteLightest;
+		display: flex;
+		justify-content: center;
+		width: 70%;
+		margin-bottom: 24px;
+		padding: 16px 21px 0px;
+		gap: 8px;
+	}
+}
+
+.icon {
+	display: flex;
+	align-items: center;
+	transition: all 0.3s;
+
+	& svg {
+		vertical-align: middle;
+	}
+
+	&.-left {
+		rotate: 180deg;
+	}
+
+	&:hover path {
+		fill: color.$whiteLightest;
+	}
+
+	&.-enabled {
+		cursor: pointer;
+	}
+
+	&.-disabled {
+		cursor: not-allowed;
+
+		& path {
+			fill: color.$whiteDarkest;
+		}
+	}
+}

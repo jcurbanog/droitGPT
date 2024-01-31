@@ -1,7 +1,5 @@
 <div class="container">
 	@for (message of messages; track $index) {
-	<div class="message" [ngClass]="message.speaker === 'user' ? '-right' : '-left'">
-		{{ message.text }}
-	</div>
+	<app-message [message]="message"></app-message>
 	}
 </div>
