@@ -4,9 +4,13 @@
 	display: none;
 }
 
+:root {
+	height: 100%;
+}
+
 body {
 	width: 100vw;
-	height: 100vh;
+	height: 100%;
 	overflow: hidden;
 	overflow-x: hidden; /* Block horizontal scroll */
 	color: color.$whiteLightest;

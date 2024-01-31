@@ -1,7 +1,8 @@
 @use 'color';
+@use 'variables';
 
 :host {
-	width: 50%;
+	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
@@ -24,7 +25,7 @@
 	justify-content: flex-end;
 	gap: 12px;
 	overflow: hidden;
-	padding: 16px 0px;
+	padding: variables.$chatLateralPadding 0px;
 }
 
 .sendMessage {
@@ -33,13 +34,13 @@
 	justify-content: center;
 	align-items: center;
 	gap: 8px;
-	padding: 0px 16px;
+	padding: 0px variables.$chatLateralPadding;
 }
 
 .icon {
 	align-self: center;
 	position: absolute;
-	right: 24px;
+	right: calc(variables.$chatLateralPadding + 12px);
 
 	&.-clickable {
 		cursor: pointer;
@@ -56,6 +57,13 @@
 	stroke: color.$whiteLightest;
 }
 
+@media screen and (min-width: 1200px) {
+	:host {
+		width: 50vw;
+	}
+}
+
+// Loader css
 .loader {
 	--dim: 1rem;
 	width: var(--dim);

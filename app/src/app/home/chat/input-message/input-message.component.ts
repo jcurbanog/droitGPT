@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ElementRef, HostBinding, HostListener, inject, Input, ViewChild } from '@angular/core'
+import { Component, DestroyRef, ElementRef, inject, Input, ViewChild } from '@angular/core'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { FormControl } from '@angular/forms'
 
@@ -10,17 +10,8 @@ import { FormControl } from '@angular/forms'
 	styleUrl: './input-message.component.scss',
 })
 export class InputMessageComponent {
-	@HostListener('window:resize', ['$event'])
-	public onResize(event: UIEvent): void {
-		if (event.target && event.target instanceof Window) {
-			this.maxInputWidth = `${event.target.innerWidth * 0.48}px`
-		}
-	}
-
 	@ViewChild('wrapper') private wrapper?: ElementRef
 	@ViewChild('textArea') private textArea?: ElementRef<HTMLTextAreaElement>
-
-	@HostBinding('style.--max-width-message-input') private maxInputWidth: string = '50vw'
 
 	@Input({ required: true }) public inputForm!: FormControl<string | null>
 
@@ -29,9 +20,6 @@ export class InputMessageComponent {
 	public ngAfterViewInit(): void {
 		this.setWrapperValue('')
 		this.setTextAreaValue('')
-		this.maxInputWidth = this.wrapper?.nativeElement.offsetWidth
-			? `${this.wrapper.nativeElement.offsetWidth}px`
-			: '50vw'
 		this.inputForm.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
 			const newValue = value || ''
 			this.setWrapperValue(newValue)

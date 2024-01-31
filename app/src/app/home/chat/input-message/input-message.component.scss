@@ -1,4 +1,5 @@
 @use 'color';
+@use 'variables';
 
 .inputWrapper {
 	display: grid;
@@ -14,10 +15,12 @@
 }
 .input,
 .inputWrapper::after {
+	--text-area-width: calc(100vw - 2 * (#{variables.$chatLateralPadding}));
 	border: 1px solid color.$blackLightest;
 	border-radius: 8px;
 	background-color: color.$blackDarkest;
-	max-width: var(--max-width-message-input);
+	width: var(--text-area-width);
+	max-width: var(--text-area-width);
 	max-height: 500px;
 	box-sizing: border-box;
 	word-wrap: break-word;
@@ -26,4 +29,11 @@
 	grid-area: 1 / 1 / 2 / 2;
 	outline: none;
 	color: white;
+}
+
+@media screen and (min-width: 1200px) {
+	.input,
+	.inputWrapper::after {
+		--text-area-width: calc(50vw - 2 * (#{variables.$chatLateralPadding}));
+	}
 }
