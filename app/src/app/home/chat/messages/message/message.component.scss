@@ -24,6 +24,8 @@
 	&_content {
 		font-size: 18px;
 		color: color.$whiteNormal;
+		white-space: pre-line;
+		word-wrap: break-word;
 	}
 
 	&.-left {

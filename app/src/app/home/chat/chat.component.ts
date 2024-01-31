@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input } from '@angular/core'
+import { Component, HostListener, Input } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 
 import { Message, MessagesComponent } from './messages/messages.component'
@@ -16,6 +16,14 @@ import { QueryForm } from '../home.component'
 	imports: [CommonModule, MessagesComponent, InputMessageComponent],
 })
 export class ChatComponent {
+	@HostListener('keydown', ['$event'])
+	protected async onKeyDown(event: KeyboardEvent): Promise<void> {
+		if (event.code === 'Enter' && !event.shiftKey) {
+			event.preventDefault()
+			await this.sendMessage()
+		}
+	}
+
 	@Input({ required: true }) public form!: FormGroup<QueryForm>
 
 	protected messages: Message[] = []

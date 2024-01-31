@@ -3,9 +3,9 @@
 		<ng-container [ngTemplateOutlet]="message.speaker === 'user' ? iconUser : iconComputer"></ng-container>
 		<b>{{ message.speaker === 'user' ? 'You' : 'DroitGPT' }}</b>
 	</div>
-	<div class="message_content">
+	<span class="message_content">
 		{{ message.text[message.index] }}
-	</div>
+	</span>
 </div>
 @if (message.text.length > 1) {
 <div class="button_wrapper">
