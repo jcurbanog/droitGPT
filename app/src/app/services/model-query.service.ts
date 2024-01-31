@@ -7,6 +7,9 @@ export interface Response {
 	response: string[]
 }
 
+const LOREM_IPSUM =
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+
 const PORT = process.env['PORT'] || 5000
 
 @Injectable({
@@ -35,7 +38,10 @@ export class ModelQueryService {
 		const options = { headers: this.headers }
 
 		return new Promise<Response>((resolve) => {
-			this.http.post<Response>(url, body, options).subscribe((answer: Response) => resolve(answer))
+			this.http.post<Response>(url, body, options).subscribe({
+				next: (answer: Response) => resolve(answer),
+				error: () => resolve({ response: [LOREM_IPSUM] }),
+			})
 		})
 	}
 }
