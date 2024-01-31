@@ -1,17 +1,10 @@
-import { Component, Input } from '@angular/core'
-import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { QueryForm } from '../home.component'
+import { Component } from '@angular/core'
 
-export type Mode = 'Single' | 'Multiple'
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [ReactiveFormsModule],
+	imports: [],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 })
-export class HeaderComponent {
-	@Input({ required: true }) public form!: FormGroup<QueryForm>
-
-	protected options: Mode[] = ['Single', 'Multiple']
-}
+export class HeaderComponent {}

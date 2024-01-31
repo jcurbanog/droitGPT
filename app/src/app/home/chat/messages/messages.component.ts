@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { MessageComponent } from './message/message.component'
@@ -17,4 +17,6 @@ export interface Message {
 })
 export class MessagesComponent {
 	@Input({ required: true }) public messages!: Message[]
+
+	@Output() public regenerateResponse = new EventEmitter<number>()
 }

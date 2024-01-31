@@ -41,7 +41,7 @@ export class ChatComponent {
 			this.messages.push({ text: [query], speaker: 'user', index: 0 })
 			this.scrollToLastMessage()
 			const response: Response = await this.modelService.request(
-				`${this.form.controls.mode.value.toLowerCase()}_response`,
+				'single_response',
 				query,
 				this.messages.slice(0, -1)
 			)
@@ -49,6 +49,23 @@ export class ChatComponent {
 			if (response.response.length) {
 				this.messages.push({ text: response.response, speaker: 'bot', index: 0 })
 				this.scrollToLastMessage()
+			}
+		}
+	}
+
+	protected async onRegenerateResponse(index: number): Promise<void> {
+		const query = this.messages[index - 1].text[0]
+		if (query && !this.loading) {
+			this.loading = true
+			const response: Response = await this.modelService.request(
+				'single_response',
+				query,
+				this.messages.slice(0, index - 1)
+			)
+			this.loading = false
+			if (response.response.length) {
+				this.messages[index].text.push(...response.response)
+				this.messages[index].index++
 			}
 		}
 	}

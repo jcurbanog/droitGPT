@@ -1,6 +1,6 @@
 <div class="container">
 	<div #messagesWrapper class="messagesWrapper">
-		<app-messages [messages]="messages" />
+		<app-messages [messages]="messages" (regenerateResponse)="onRegenerateResponse($event)" />
 	</div>
 	<div class="sendMessage">
 		<app-input-message [inputForm]="form.controls.input" class="input" />

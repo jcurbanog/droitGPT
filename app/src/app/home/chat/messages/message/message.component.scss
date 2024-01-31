@@ -6,6 +6,11 @@
 	flex-direction: column;
 }
 
+.headerContainer {
+	display: flex;
+	justify-content: space-between;
+}
+
 .message {
 	padding: 12px 20px 16px;
 	width: 70%;
@@ -78,5 +83,14 @@
 		& path {
 			fill: color.$whiteDarkest;
 		}
+	}
+}
+
+.regenerate {
+	transition: all 0.3;
+	cursor: pointer;
+
+	&:hover path {
+		stroke: color.$whiteLightest;
 	}
 }

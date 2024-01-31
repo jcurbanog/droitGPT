@@ -11,10 +11,6 @@
 	font-weight: bold;
 }
 
-.label {
-	display: none;
-}
-
 @media screen and (min-width: 1200px) {
 	:host {
 		display: grid;
@@ -24,24 +20,9 @@
 		padding: 12px 12px;
 	}
 
-	.label {
-		display: block;
-	}
-
-	.empty {
-		grid-column: 1;
-	}
-
 	.title {
 		display: flex;
 		grid-column: 2;
 		justify-content: center;
-	}
-	.selector {
-		display: flex;
-		grid-column: 3;
-		justify-content: flex-end;
-		align-items: center;
-		gap: 10px;
 	}
 }
