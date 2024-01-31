@@ -86,6 +86,9 @@ if __name__ == "__main__":
             def load(self):
                 return self.application
 
-        options = {"bind": f"{Config.HOST}:{Config.PORT}", "workers": 2}
+        options = {
+            "bind": f"{Config.HOST}:{Config.PORT}",
+            "workers": Config.WORKERS_NUMBER,
+        }
 
         FlaskApp(app, options).run()
