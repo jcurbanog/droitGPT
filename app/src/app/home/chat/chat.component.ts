@@ -7,13 +7,20 @@ import { InputMessageComponent } from './input-message/input-message.component'
 
 import { ModelQueryService, Response } from '../../services/model-query.service'
 import { QueryForm } from '../home.component'
+import { StartUpButtonsComponent } from './start-up-buttons/start-up-buttons.component'
+
+const DEFAULT_INPUTS = [
+	"Bojour, comment tu t'appeles ?",
+	"J'ai un examen de droit du travail lundi prochain, est-ce que tu peux m'aider ?",
+	'Tu connais quoi sur le code penal français ?',
+]
 
 @Component({
 	selector: 'app-chat',
 	standalone: true,
 	templateUrl: './chat.component.html',
 	styleUrl: './chat.component.scss',
-	imports: [CommonModule, MessagesComponent, InputMessageComponent],
+	imports: [CommonModule, MessagesComponent, InputMessageComponent, StartUpButtonsComponent],
 })
 export class ChatComponent {
 	@HostListener('keydown', ['$event'])
@@ -30,6 +37,7 @@ export class ChatComponent {
 
 	protected messages: Message[] = []
 	protected loading: boolean = false
+	protected defaultInputs: string[] = DEFAULT_INPUTS
 
 	constructor(private modelService: ModelQueryService) {}
 

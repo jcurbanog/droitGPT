@@ -16,6 +16,12 @@
 .messagesWrapper {
 	height: 100%;
 	overflow: scroll;
+	padding: 0px variables.$chatLateralPadding;
+
+	&.-empty {
+		display: flex;
+		align-items: end;
+	}
 }
 
 .container {

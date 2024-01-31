@@ -1,6 +1,11 @@
 <div class="container">
-	<div #messagesWrapper class="messagesWrapper">
-		<app-messages [messages]="messages" (regenerateResponse)="onRegenerateResponse($event)" />
+	<div #messagesWrapper class="messagesWrapper" [class.-empty]="!messages.length">
+		<app-messages
+			*ngIf="messages.length"
+			[messages]="messages"
+			(regenerateResponse)="onRegenerateResponse($event)"
+		/>
+		<app-start-up-buttons *ngIf="!messages.length" [options]="defaultInputs"></app-start-up-buttons>
 	</div>
 	<div class="sendMessage">
 		<app-input-message [inputForm]="form.controls.input" class="input" />
