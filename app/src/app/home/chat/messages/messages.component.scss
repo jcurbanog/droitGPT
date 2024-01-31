@@ -1,9 +1,5 @@
 @use 'color';
 
-:host {
-	overflow-y: scroll;
-}
-
 .container {
 	min-height: 100%;
 	display: flex;

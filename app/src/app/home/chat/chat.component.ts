@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, HostListener, Input } from '@angular/core'
+import { Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core'
 import { FormGroup } from '@angular/forms'
 
 import { Message, MessagesComponent } from './messages/messages.component'
@@ -24,6 +24,8 @@ export class ChatComponent {
 		}
 	}
 
+	@ViewChild('messagesWrapper') public messagesWrapper?: ElementRef
+
 	@Input({ required: true }) public form!: FormGroup<QueryForm>
 
 	protected messages: Message[] = []
@@ -37,6 +39,7 @@ export class ChatComponent {
 			this.loading = true
 			this.form.controls.input.setValue('')
 			this.messages.push({ text: [query], speaker: 'user', index: 0 })
+			this.scrollToLastMessage()
 			const response: Response = await this.modelService.request(
 				`${this.form.controls.mode.value.toLowerCase()}_response`,
 				query,
@@ -45,7 +48,16 @@ export class ChatComponent {
 			this.loading = false
 			if (response.response.length) {
 				this.messages.push({ text: response.response, speaker: 'bot', index: 0 })
+				this.scrollToLastMessage()
 			}
+		}
+	}
+
+	private scrollToLastMessage(): void {
+		if (this.messagesWrapper) {
+			setTimeout(() => {
+				this.messagesWrapper!.nativeElement.scrollTo({ top: 99999, behavior: 'smooth' })
+			}, 10)
 		}
 	}
 }

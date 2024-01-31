@@ -1,5 +1,7 @@
 <div class="container">
-	<app-messages class="messages" [messages]="messages" />
+	<div #messagesWrapper class="messagesWrapper">
+		<app-messages [messages]="messages" />
+	</div>
 	<div class="sendMessage">
 		<app-input-message [inputForm]="form.controls.input" class="input" />
 		<div class="icon" [class.-clickable]="!loading" (click)="sendMessage()">
