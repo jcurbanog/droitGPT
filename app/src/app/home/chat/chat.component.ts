@@ -19,7 +19,6 @@ export class ChatComponent {
 	@Input({ required: true }) public form!: FormGroup<QueryForm>
 
 	protected messages: Message[] = []
-	protected cachedMessages: Message[] = []
 	protected loading: boolean = false
 
 	constructor(private modelService: ModelQueryService) {}
@@ -28,9 +27,8 @@ export class ChatComponent {
 		const query = this.form.controls.input.value
 		if (query && !this.loading) {
 			this.loading = true
-			this.cachedMessages = []
 			this.form.controls.input.setValue('')
-			this.messages.push({ text: query, speaker: 'user' })
+			this.messages.push({ text: [query], speaker: 'user', index: 0 })
 			const response: Response = await this.modelService.request(
 				`${this.form.controls.mode.value.toLowerCase()}_response`,
 				query,
@@ -38,13 +36,8 @@ export class ChatComponent {
 			)
 			this.loading = false
 			if (response.response.length) {
-				this.messages.push({ text: response.response.pop()!, speaker: 'bot' })
-				this.cachedMessages = response.response.map((res) => ({ text: res, speaker: 'bot' }))
+				this.messages.push({ text: response.response, speaker: 'bot', index: 0 })
 			}
 		}
-	}
-
-	protected oneMore(): void {
-		this.messages.push(this.cachedMessages.pop()!)
 	}
 }

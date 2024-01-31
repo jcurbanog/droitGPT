@@ -23,12 +23,15 @@ export class ModelQueryService {
 		// Set apiUrl based on the host where the app is running
 		const host = window.location.host.split(':')[0]
 		this.apiUrl = `http://${host}:${PORT}/`
-		console.log(this.apiUrl)
 	}
 
 	public request(endpoint: string, query: string, messages: Message[]): Promise<Response> {
 		const url = `${this.apiUrl}${endpoint}`
-		const body = { input: query, conversation: messages }
+		const conversation = messages.map((message) => ({
+			text: message.text[message.index],
+			speaker: message.speaker,
+		}))
+		const body = { input: query, conversation: conversation }
 		const options = { headers: this.headers }
 
 		return new Promise<Response>((resolve) => {

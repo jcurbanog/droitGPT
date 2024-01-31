@@ -1,10 +1,5 @@
 <div class="container">
-	<app-messages
-		class="messages"
-		[cachedMessages]="cachedMessages"
-		[messages]="messages"
-		(oneMoreAnswer)="oneMore()"
-	/>
+	<app-messages class="messages" [messages]="messages" />
 	<div class="sendMessage">
 		<app-input-message [inputForm]="form.controls.input" class="input" />
 		<div class="icon" [class.-clickable]="!loading" (click)="sendMessage()">

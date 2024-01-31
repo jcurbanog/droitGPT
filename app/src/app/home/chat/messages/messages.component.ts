@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
 import { MessageComponent } from './message/message.component'
 
 export interface Message {
-	text: string
+	text: string[]
 	speaker: 'user' | 'bot'
+	index: number
 }
 @Component({
 	selector: 'app-messages',
@@ -16,7 +17,4 @@ export interface Message {
 })
 export class MessagesComponent {
 	@Input({ required: true }) public messages!: Message[]
-	@Input({ required: true }) public cachedMessages!: Message[]
-
-	@Output() public oneMoreAnswer = new EventEmitter<void>()
 }
