@@ -12,8 +12,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class AIAssistant:
-    def __init__(self, model_id: Optional[str]):
+    def __init__(self, model_id: Optional[str] = None):
         self.model_id = model_id
+        self.tokenizer = None
+        self.model = None
 
         if not self.model_id:
             self.tokenizer = AutoTokenizer.from_pretrained(
@@ -59,7 +61,7 @@ class VectorDatabase:
         self.clean_data_folder = clean_data_folder
         self.files_for_indexing = files_for_indexing
         self.searcher = None
-        self.docs = []
+        self.docs: List[Document] = []
         self.create_or_load()
 
     def create_or_load(self):
@@ -86,6 +88,44 @@ class VectorDatabase:
             self.searcher.save_local(self.vector_db_path)
         return self
 
+    def add_context_to_article(
+        self,
+        text: str,
+        file: str,
+        init_level=2,
+        header_name: str = None,
+    ):
+        level = init_level
+        pattern = "#{level} (.*?)\n(.*?)(?=\n#{level} )"
+        formatted_pattern = pattern.format(level="{" + str(level) + "}")
+        parts = re.findall(formatted_pattern, text.strip(), re.DOTALL)
+        if not parts:
+            if ":" not in header_name:
+                header_name = ""
+            else:
+                header_name = header_name.split(":")[-1].strip()
+
+            articles = re.findall(r"\*\*(Art\. .*?)\*\*\n(.*?)(?=\*\*)", text, re.DOTALL)
+            articles_context = [
+                (article_name, "Contexte: " + header_name + "\n" + article_text)
+                for article_name, article_text in articles
+            ]
+            for article_name, text in articles_context:
+                text = text.strip()
+                if not text:
+                    continue
+                clean_file_path = self.clean_data_folder + "/" + article_name + "_" + file
+                with open(clean_file_path, "w", encoding="utf-8") as f:
+                    f.write(text)
+
+        for part_name, part_text in parts:
+            self.add_context_to_article(
+                text=part_text,
+                header_name=part_name,
+                init_level=level + 1,
+                file=file,
+            )
+
     def clean_data(self):
         if not os.path.exists(self.clean_data_folder):
             os.makedirs(self.clean_data_folder)
@@ -93,49 +133,26 @@ class VectorDatabase:
         for file in os.listdir(self.data_folder):
             if file in self.files_for_indexing:
                 file_path = self.data_folder + "/" + file
-                clean_file_path = self.clean_data_folder + "/clean_" + file
+
                 with open(file_path, "r", encoding="utf-8") as f:
                     text = f.read()
 
-                    # Transform textdata with re here
                     pattern1 = re.compile(r"---.*?---", re.DOTALL)  # remove title and date
                     text = re.sub(pattern1, "", text)
 
-                    pattern2 = re.compile(r"#+.*\n")  # remove Markdown titles
-                    text = re.sub(pattern2, "", text)
-
-                    pattern2 = re.compile(r"\*\*.*\*\*")  # remove Article titles
-                    text = re.sub(pattern2, "", text)
-
-                    pattern3 = re.compile(
-                        r"<div.*</div>"
-                    )  # remove html content (simple approach, usually tables)
+                    # remove html content (simple approach, usually tables)
+                    pattern3 = re.compile(r"<div.*</div>")
                     text = re.sub(pattern3, "", text)
 
                     pattern4 = re.compile(r"([:;])\n+")  # form paragraphs
                     text = re.sub(pattern4, lambda x: x.group(1) + " ", text)
 
-                    with open(clean_file_path, "w", encoding="utf-8") as f:
-                        f.write(text)
+                    self.add_context_to_article(text=text, file=file)
 
     def add_docs(self):
-        documents: List[Document] = []
         for file in os.listdir(self.clean_data_folder):
             filename = os.fsdecode(self.clean_data_folder + "/" + file)
-            loader = TextLoader(filename)
-            documents += loader.load()
-
-        for doc in documents:
-            texts = re.split("\n+", doc.page_content)
-            texts = [text for text in texts if text]
-            for text in texts:
-                if self.is_text_relevant(text):
-                    self.docs.append(Document(page_content=text, metadata=doc.metadata))
-
-    @staticmethod
-    def is_text_relevant(text: str):
-        """Simple way to filter out noise"""
-        return len(text) >= 100
+            self.docs.extend(TextLoader(filename).load())
 
 
 class droitGPT:
@@ -146,18 +163,40 @@ class droitGPT:
             "Vous êtes un assistant spécialisé dans les codes juridiques français."
         )
 
-    def get_additional_info(self, query: str, sim_threshold: float = 1.0) -> str:
+    @staticmethod
+    def parse_doc_metadata(doc: Document) -> str:
+        source = doc.metadata["source"].split("/")[-1][:-3].split("_")
+        name = source[0]
+        code = source[1]
+        return f"Code {code} - {name}"
+
+    def get_relevant_docs(self, query: str, sim_threshold: float = 1.0) -> List[Document]:
         results = self.searcher.similarity_search_with_score(query)
         relevant_docs = [doc for doc, score in results if score <= sim_threshold]
+
+        clean_relevant_docs = [
+            Document(
+                page_content=doc.page_content.split("\n", 1)[-1].strip(), metadata=doc.metadata
+            )
+            for doc in relevant_docs
+        ]
+
+        return clean_relevant_docs
+
+    def parse_relevant_docs(self, relevant_docs: List[Document]) -> str:
         if not relevant_docs:
             return ""
-        return "\n".join([doc.page_content for doc in relevant_docs])
+        parsed = "".join(
+            [f"{self.parse_doc_metadata(doc)} : {doc.page_content}\n\n\n" for doc in relevant_docs]
+        )
+        return "Vous pouvez également vérifier:\n" + parsed
 
-    def enrich_input(self, input: str):
-        additional_info = self.get_additional_info(query=input)
-        if not additional_info:
+    def enrich_input(self, input: str, relevant_docs: List[Document]) -> str:
+        if not relevant_docs:
             return input
-        return input + "\nÉtant donné que:\n" + additional_info + "\n"
+
+        contents = "\n".join([doc.page_content for doc in relevant_docs])
+        return input + "\nÉtant donné que:\n" + contents + "\n"
 
     def format_history(self, history):
         new_history = []
@@ -168,23 +207,19 @@ class droitGPT:
             new_history.append((history[i]["text"], history[i + 1]["text"]))
         return new_history
 
-    def answer(
-        self, input: str, conversation: List[Tuple[str, str]], is_multiple: bool = False
-    ) -> List[str]:
+    def answer(self, input: str, conversation: List[Tuple[str, str]]) -> Tuple[List[str], str]:
 
-        input_enriched = self.enrich_input(input)
+        relevant_docs = self.get_relevant_docs(input)
+        input_enriched = self.enrich_input(input, relevant_docs)
+        retrieved_docs_info = self.parse_relevant_docs(relevant_docs)
 
-        n = 3 if is_multiple else 1
-        answers = []
-        for _ in range(n):
-            answer, _ = self.ai_assistant.model.chat(
-                self.ai_assistant.tokenizer,
-                input_enriched,
-                history=self.format_history(conversation),
-                system=self.system_prompt,
-            )
-            answers.append(answer)
-        return answers
+        answer, _ = self.ai_assistant.model.chat(
+            self.ai_assistant.tokenizer,
+            input_enriched,
+            history=self.format_history(conversation),
+            system=self.system_prompt,
+        )
+        return [answer], retrieved_docs_info
 
 
 def droitGPT_init() -> droitGPT:
