@@ -1,0 +1,3 @@
+Contexte: Mesures visant à supprimer les écarts de rémunération entre les femmes et les hommes dans l'entreprise et à assurer une répartition équilibrée de chaque sexe parmi les cadres dirigeants et les membres des instances dirigeantes
+
+Les écarts éventuels de représentation mentionnés à l'article D. 1142-16 sont publiés et actualisés sur le site internet du ministère chargé du travail, chaque année au plus tard le 31 décembre, par les services du ministre chargé du travail.

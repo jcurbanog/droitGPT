@@ -1,0 +1,3 @@
+Contexte: Transmissions à Pôle emploi d'une liste nominative des bénéficiaires du revenu de solidarité active et de l'allocation aux adultes handicapés
+
+Les droits d'accès et de rectification prévus par les articles 39 et 40 de la loi n° 78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés s'exercent auprès de l'organisme chargé du service de l'allocation dont bénéficie l'intéressé parmi celles mentionnées à l'article R. 5312-32.

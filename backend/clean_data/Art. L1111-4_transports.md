@@ -1,0 +1,3 @@
+Contexte: Principes
+
+Le droit à la mobilité comprend le droit pour l'usager d'être informé sur les moyens qui lui sont offerts et sur les modalités de leur utilisation.

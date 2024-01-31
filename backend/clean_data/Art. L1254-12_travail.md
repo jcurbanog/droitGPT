@@ -1,0 +1,3 @@
+Contexte: Fixation du terme et durée du contrat
+
+La durée totale du contrat à durée déterminée ne peut excéder dix-huit mois compte tenu, le cas échéant, du ou des renouvellements dans les conditions prévues à l'article L. 1254-17.

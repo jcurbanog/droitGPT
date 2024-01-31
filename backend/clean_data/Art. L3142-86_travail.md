@@ -1,0 +1,3 @@
+Contexte: Congés des salariés candidats ou élus à un mandat parlementaire ou local.
+
+Un décret détermine les conditions dans lesquelles les droits des salariés, notamment en matière de prévoyance et de retraite, leur sont conservés durant la durée du mandat.

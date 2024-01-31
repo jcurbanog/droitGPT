@@ -1,0 +1,3 @@
+Contexte: Déclaration de candidature
+
+Les attributions conférées au préfet par l'article L. 159 sont exercées par le ministre de l'intérieur.

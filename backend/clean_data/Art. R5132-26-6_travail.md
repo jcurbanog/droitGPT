@@ -1,0 +1,3 @@
+Contexte: Suivi médical des salariés de l'association intermédiaire.
+
+L'association intermédiaire assure le suivi de l'état de santé des personnes mises à disposition d'un utilisateur par un service de santé au travail interentreprises.

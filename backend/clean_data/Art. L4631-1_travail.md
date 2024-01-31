@@ -1,0 +1,3 @@
+Contexte: Mise en place et missions.
+
+Un service social du travail est organisé dans tout établissement employant habituellement au moins deux cent cinquante salariés.

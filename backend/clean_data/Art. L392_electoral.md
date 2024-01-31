@@ -1,0 +1,9 @@
+Contexte: Dispositions générales
+
+Pour l'application des dispositions du chapitre V bis du titre Ier du livre Ier : 1° et 2° (abrogés)
+
+3° Pour la Nouvelle-Calédonie, le tableau du deuxième alinéa de l'article L. 52-11 est remplacé par le tableau suivant : 6° Aux articles L. 52-8 et L. 52-11, la référence à l'indice du coût de la vie de l'Institut national de la statistique et des études économiques est remplacée : a) En Nouvelle-Calédonie, par la référence à l'indice du coût de la vie (hors tabac) de l'Institut territorial de la statistique et des études économiques ; b) En Polynésie française, par la référence à l'indice des prix à la consommation des ménages de l'Institut territorial de la statistique et des études économiques ; c) Dans les îles Wallis et Futuna, par la référence à l'indice local des prix à la consommation.
+
+7° Les frais de transport aérien et maritime dûment justifiés, exposés à l'intérieur de la collectivité intéressée par les candidats aux élections législatives et aux élections sénatoriales en Nouvelle-Calédonie, en Polynésie française et aux îles Wallis et Futuna et aux élections au congrès et aux assemblées de province de Nouvelle-Calédonie ou à l'assemblée de la Polynésie française ou à l'assemblée territoriale des îles Wallis et Futuna, ne sont pas inclus dans le plafond des dépenses électorales fixé par l'article L. 52-11.
+
+8° Par dérogation au II et à la seconde phrase du 2° du III de l'article L. 52-12, le compte de campagne et, le cas échéant, les relevés du compte bancaire ouvert en application des articles L. 52-5 ou L. 52-6 peuvent également être déposés auprès des services du représentant de l'Etat.

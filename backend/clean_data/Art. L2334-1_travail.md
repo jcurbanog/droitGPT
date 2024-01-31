@@ -1,0 +1,5 @@
+Contexte: Fonctionnement.
+
+Le comité de groupe est présidé par le chef de l'entreprise dominante.
+
+Il désigne un secrétaire.

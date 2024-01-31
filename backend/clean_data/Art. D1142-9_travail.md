@@ -1,0 +1,3 @@
+Contexte: Mesures visant à supprimer les écarts de rémunération entre les femmes et les hommes dans l'entreprise et à assurer une répartition équilibrée de chaque sexe parmi les cadres dirigeants et les membres des instances dirigeantes
+
+Lorsque l'agent de contrôle de l'inspection du travail constate que le niveau de résultat mentionné à l'article D. 1142-3, est, depuis trois ans, inférieur à soixante-quinze points, il transmet au directeur régional des entreprises, de la concurrence, de la consommation, du travail et de l'emploi un rapport sur cette situation.
