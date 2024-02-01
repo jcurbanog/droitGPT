@@ -10,6 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 })
 export class HeaderComponent {
 	@Input({ required: true }) public showMenu!: boolean
+	@Input({ required: true }) public loading!: boolean
 
 	@Output() public showMenuChange = new EventEmitter<boolean>()
 }

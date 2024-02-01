@@ -21,6 +21,13 @@
 	&:hover path {
 		stroke: color.$whiteLightest;
 	}
+
+	&.-disabled {
+		cursor: not-allowed;
+		path {
+			stroke: color.$whiteDarkest;
+		}
+	}
 }
 
 @media screen and (min-width: 1200px) {

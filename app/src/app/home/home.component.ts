@@ -25,6 +25,7 @@ export class HomeComponent {
 	protected chatIndex = 0
 	protected inputForm = new FormControl<string | null>('')
 	protected showMenu = false
+	protected loading = false
 
 	protected form = new FormGroup({
 		input: this.inputForm,

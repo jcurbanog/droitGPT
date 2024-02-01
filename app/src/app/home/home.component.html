@@ -22,8 +22,8 @@
 	</div>
 </div>
 <div class="container">
-	<app-header [(showMenu)]="showMenu" />
-	<app-chat class="chat" [form]="form" [messages]="chats[chatIndex].messages" />
+	<app-header [(showMenu)]="showMenu" [loading]="loading" />
+	<app-chat class="chat" [form]="form" [messages]="chats[chatIndex].messages" [(loading)]="loading" />
 </div>
 
 <ng-template #crossIcon>
