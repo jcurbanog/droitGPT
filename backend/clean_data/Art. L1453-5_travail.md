@@ -1,0 +1,3 @@
+Contexte: Assistance et représentation des parties.
+
+Dans les établissements d'au moins onze salariés, le défenseur syndical dispose du temps nécessaire à l'exercice de ses fonctions, dans la limite de dix heures par mois.

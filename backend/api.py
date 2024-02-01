@@ -27,9 +27,7 @@ model_query = api.model(
 
 model_response = api.model(
     "Response Model",
-    {
-        "response": fields.List(fields.String),
-    },
+    {"response": fields.List(fields.String), "additional_info": fields.String},
 )
 
 retrieval_chain = None
@@ -49,26 +47,17 @@ class SingleResponse(Resource):
         lazy_init_retrieval_chain()
         input = api.payload.get("input")
         conversation = api.payload.get("conversation")
-        response = retrieval_chain.answer(input=input, conversation=conversation)
-        return {"response": response}
-
-
-@api.route("/multiple_response")
-class MultipleResponse(Resource):
-    @api.expect(model_query)
-    @api.marshal_with(model_response)
-    def post(self):
-        lazy_init_retrieval_chain()
-        input = api.payload.get("input")
-        conversation = api.payload.get("conversation")
-        response = retrieval_chain.answer(input=input, conversation=conversation, is_multiple=True)
-        return {"response": response}
+        response, additional_info = retrieval_chain.answer(input=input, conversation=conversation)
+        return {
+            "response": response,
+            "additional_info": additional_info,
+        }
 
 
 if __name__ == "__main__":
-    if Config.ENV != "production":
+    if Config.ENV == "development":
         app.run(debug=Config.DEBUG, port=Config.PORT, host=Config.HOST)
-    else:
+    elif Config.ENV == "production":
         # Run the app using Gunicorn
         from gunicorn.app.base import BaseApplication
 
@@ -92,3 +81,5 @@ if __name__ == "__main__":
         }
 
         FlaskApp(app, options).run()
+    else:
+        raise ValueError("Environment not recoginzed!")

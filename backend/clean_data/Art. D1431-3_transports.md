@@ -1,0 +1,3 @@
+Contexte: Portée de l'obligation d'information sur la quantité de gaz à effet de serre émise lors du transport
+
+L'information mentionnée à l'article L. 1431-3 porte sur la quantité de gaz à effet de serre émise pour un ensemble comprenant la phase de fonctionnement des moyens de transport et la phase amont de production des sources d'énergie nécessaires au fonctionnement des moyens de transport.

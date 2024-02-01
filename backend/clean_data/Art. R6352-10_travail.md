@@ -1,0 +1,3 @@
+Contexte: Election et scrutin
+
+Le scrutin se déroule pendant les heures de la formation. Il a lieu au plus tôt vingt heures et au plus tard quarante heures après le début de la première session collective.

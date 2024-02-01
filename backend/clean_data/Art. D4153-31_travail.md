@@ -1,0 +1,5 @@
+Contexte: Travaux temporaires en hauteur
+
+I. — Il est interdit d'affecter les jeunes au montage et démontage d'échafaudages.
+
+II. — Il peut être dérogé à l'interdiction mentionnée au I dans les conditions et formes prévues à la section 3 du présent chapitre.

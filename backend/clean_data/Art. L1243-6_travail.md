@@ -1,0 +1,3 @@
+Contexte: Echéance du terme du contrat et poursuite après échéance.
+
+La suspension du contrat de travail à durée déterminée ne fait pas obstacle à l'échéance du terme.

@@ -1,0 +1,3 @@
+Contexte: Mesures visant à supprimer les écarts de rémunération entre les femmes et les hommes dans l'entreprise et à assurer une répartition équilibrée de chaque sexe parmi les cadres dirigeants et les membres des instances dirigeantes
+
+Chaque directeur régional des entreprises, de la concurrence, de la consommation, du travail et de l'emploi désigne un ou plusieurs référents chargés d'accompagner les entreprises de cinquante à deux cent cinquante salariés, à leur demande, pour le calcul des indicateurs mentionnés à l'article D. 1142-2 et, le cas échéant, pour la définition des mesures adéquates et pertinentes de correction.

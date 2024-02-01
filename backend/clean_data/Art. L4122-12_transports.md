@@ -1,0 +1,3 @@
+Contexte: Privilèges
+
+Les bateaux sont affectés aux dettes que la loi déclare privilégiées pour les meubles.

@@ -1,0 +1,7 @@
+Contexte: Financement et plafonnement des dépenses électorales
+
+Pour les élections auxquelles l'article L. 52-4 est applicable, il est institué un plafond des dépenses électorales (1), autres que les dépenses de propagande directement prises en charge par l'Etat, exposées par chaque candidat ou chaque liste de candidats, ou pour leur compte, au cours de la période mentionnée au même article.
+
+Le montant du plafond est déterminé en fonction du nombre d'habitants de la circonscription d'élection, conformément au tableau ci-après : Les plafonds définis pour l'élection des conseillers régionaux sont applicables à l'élection des conseillers à l'Assemblée de Corse et des conseillers aux assemblées de Guyane et de Martinique.
+
+Les montants prévus au présent article sont actualisés tous les ans par décret. Ils évoluent comme l'indice des prix à la consommation des ménages, hors tabac. Il n'est pas procédé à une telle actualisation à compter de 2012 et jusqu'à l'année au titre de laquelle le déficit public des administrations publiques est nul. Ce déficit est constaté dans les conditions prévues au deuxième alinéa de l'article 3 du règlement (CE) n° 479/2009 du Conseil, du 25 mai 2009, relatif à l'application du protocole sur la procédure concernant les déficits excessifs annexé au traité instituant la Communauté européenne.

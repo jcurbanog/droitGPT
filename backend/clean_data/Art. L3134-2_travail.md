@@ -1,0 +1,3 @@
+Contexte: Dispositions particulières aux départements de la Moselle, du Bas-Rhin et du Haut-Rhin.
+
+L'emploi de salariés dans les entreprises industrielles, commerciales ou artisanales est interdit les dimanches et jours fériés, sauf dans les cas prévus par le présent chapitre.

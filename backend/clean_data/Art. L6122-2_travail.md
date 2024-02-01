@@ -1,0 +1,3 @@
+Contexte: Rôle de l'Etat.
+
+Après accord de la région, l'Etat peut organiser et financer, avec l'opérateur France Travail, des formations réalisées exclusivement à distance au bénéfice des personnes à la recherche d'un emploi.
