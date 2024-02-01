@@ -183,20 +183,28 @@ class droitGPT:
 
         return clean_relevant_docs
 
+    @staticmethod
+    def parse_doc_content(text: str) -> str:
+        text = text.replace("\n\n", "\n")
+        return text[:550] + "..." if len(text) > 550 else text
+
     def parse_relevant_docs(self, relevant_docs: List[Document]) -> str:
         if not relevant_docs:
             return ""
         parsed = "".join(
-            [f"{self.parse_doc_metadata(doc)} : {doc.page_content}\n\n\n" for doc in relevant_docs]
+            [
+                f"{self.parse_doc_metadata(doc)} : {self.parse_doc_content(doc.page_content)}\n\n\n"
+                for doc in relevant_docs
+            ]
         )
-        return "Vous pouvez également vérifier:\n" + parsed
+        return "Vous pouvez également vérifier:\n\n" + parsed
 
     def enrich_input(self, input: str, relevant_docs: List[Document]) -> str:
         if not relevant_docs:
             return input
 
         contents = "\n".join([doc.page_content for doc in relevant_docs])
-        return input + "\nÉtant donné que:\n" + contents + "\n"
+        return "\nÉtant donné que:\n" + contents + "\n" + input
 
     def format_history(self, history):
         new_history = []
