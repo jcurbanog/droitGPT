@@ -5,7 +5,11 @@
 			[messages]="messages"
 			(regenerateResponse)="onRegenerateResponse($event)"
 		/>
-		<app-start-up-buttons *ngIf="!messages.length" [options]="defaultInputs"></app-start-up-buttons>
+		<app-start-up-buttons
+			*ngIf="!messages.length"
+			[options]="defaultInputs"
+			(quickQuestion)="onQuickQuestion($event)"
+		></app-start-up-buttons>
 	</div>
 	<div class="sendMessage">
 		<app-input-message [inputForm]="form.controls.input" class="input" />

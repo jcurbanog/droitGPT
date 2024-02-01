@@ -17,6 +17,7 @@
 	align-items: center;
 	text-align: center;
 	cursor: pointer;
+	transition: all 0.3s;
 
 	&:hover {
 		border-color: color.$whiteLightest;

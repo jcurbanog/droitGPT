@@ -78,6 +78,24 @@ export class ChatComponent {
 		}
 	}
 
+	protected async onQuickQuestion(query: string): Promise<void> {
+		if (query && !this.loading) {
+			this.loading = true
+			this.messages.push({ text: [query], speaker: 'user', index: 0 })
+			this.scrollToLastMessage()
+			const response: Response = await this.modelService.request(
+				'single_response',
+				query,
+				this.messages.slice(0, -1)
+			)
+			this.loading = false
+			if (response.response.length) {
+				this.messages.push({ text: response.response, speaker: 'bot', index: 0 })
+				this.scrollToLastMessage()
+			}
+		}
+	}
+
 	private scrollToLastMessage(): void {
 		if (this.messagesWrapper) {
 			setTimeout(() => {

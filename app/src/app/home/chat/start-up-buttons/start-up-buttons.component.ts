@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 
 @Component({
 	selector: 'app-start-up-buttons',
@@ -10,4 +10,6 @@ import { Component, Input } from '@angular/core'
 })
 export class StartUpButtonsComponent {
 	@Input({ required: true }) public options!: string[]
+
+	@Output() public quickQuestion = new EventEmitter<string>()
 }
