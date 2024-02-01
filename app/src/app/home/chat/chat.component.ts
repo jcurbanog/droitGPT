@@ -10,9 +10,10 @@ import { QueryForm } from '../home.component'
 import { StartUpButtonsComponent } from './start-up-buttons/start-up-buttons.component'
 
 const DEFAULT_INPUTS = [
-	"Bojour, comment tu t'appeles ?",
-	"J'ai un examen de droit du travail lundi prochain, est-ce que tu peux m'aider ?",
-	'Tu connais quoi sur le code penal français ?',
+	"Qu'est-ce que la discrimination en milieu professionnel ?",
+	"Qu'est-ce que le comité social et économique (CSE) ?",
+	"Qui a la responsabilité de l'organisation et du fonctionnement des transports scolaires ?",
+	'Les soldats de l’armée peuvent-ils voter ?',
 ]
 
 @Component({
@@ -46,7 +47,7 @@ export class ChatComponent {
 		if (query && !this.loading) {
 			this.loading = true
 			this.form.controls.input.setValue('')
-			this.messages.push({ text: [query], speaker: 'user', index: 0 })
+			this.messages.push({ text: [query], speaker: 'user', index: 0, additionalInfo: [''] })
 			this.scrollToLastMessage()
 			const response: Response = await this.modelService.request(
 				'single_response',
@@ -55,7 +56,12 @@ export class ChatComponent {
 			)
 			this.loading = false
 			if (response.response.length) {
-				this.messages.push({ text: response.response, speaker: 'bot', index: 0 })
+				this.messages.push({
+					text: response.response,
+					speaker: 'bot',
+					index: 0,
+					additionalInfo: [response.additional_info || ''],
+				})
 				this.scrollToLastMessage()
 			}
 		}
@@ -73,7 +79,8 @@ export class ChatComponent {
 			this.loading = false
 			if (response.response.length) {
 				this.messages[index].text.push(...response.response)
-				this.messages[index].index++
+				this.messages[index].additionalInfo.push(response.additional_info || '')
+				this.messages[index].index = this.messages[index].text.length - 1
 			}
 		}
 	}
@@ -81,7 +88,7 @@ export class ChatComponent {
 	protected async onQuickQuestion(query: string): Promise<void> {
 		if (query && !this.loading) {
 			this.loading = true
-			this.messages.push({ text: [query], speaker: 'user', index: 0 })
+			this.messages.push({ text: [query], speaker: 'user', index: 0, additionalInfo: [''] })
 			this.scrollToLastMessage()
 			const response: Response = await this.modelService.request(
 				'single_response',
@@ -90,7 +97,12 @@ export class ChatComponent {
 			)
 			this.loading = false
 			if (response.response.length) {
-				this.messages.push({ text: response.response, speaker: 'bot', index: 0 })
+				this.messages.push({
+					text: response.response,
+					speaker: 'bot',
+					index: 0,
+					additionalInfo: [response.additional_info || ''],
+				})
 				this.scrollToLastMessage()
 			}
 		}

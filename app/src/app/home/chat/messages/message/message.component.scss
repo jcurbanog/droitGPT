@@ -26,11 +26,22 @@
 		align-items: center;
 	}
 
+	&_footer {
+		display: flex;
+		justify-content: flex-end;
+	}
+
 	&_content {
-		font-size: 18px;
+		font-size: 16px;
 		color: color.$whiteNormal;
 		white-space: pre-line;
 		word-wrap: break-word;
+
+		&.-footer {
+			font-size: 12px;
+			padding-top: 24px;
+			border-top: 1px solid color.$whiteDarkest;
+		}
 	}
 
 	&.-left {
@@ -56,13 +67,32 @@
 	}
 }
 
+.moreInfo {
+	& path {
+		fill: color.$whiteDarker;
+	}
+
+	&:hover path {
+		fill: color.$whiteLightest;
+	}
+}
+
 .icon {
 	display: flex;
 	align-items: center;
 	transition: all 0.3s;
 
 	& svg {
+		transition: all 0.3s;
 		vertical-align: middle;
+	}
+
+	&.-up {
+		rotate: -90deg;
+	}
+
+	&.-down {
+		rotate: 90deg;
 	}
 
 	&.-left {

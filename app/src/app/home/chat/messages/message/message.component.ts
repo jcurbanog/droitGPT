@@ -14,6 +14,8 @@ export class MessageComponent {
 
 	@Output() public regenerateResponse = new EventEmitter<void>()
 
+	protected showMoreInfo = false
+
 	protected increaseIndex(): void {
 		if (this.message.index < this.message.text.length - 1) {
 			this.message.index++

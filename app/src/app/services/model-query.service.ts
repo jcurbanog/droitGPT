@@ -5,6 +5,7 @@ import { Message } from '../home/chat/messages/messages.component'
 
 export interface Response {
 	response: string[]
+	additional_info: string
 }
 
 const LOREM_IPSUM =
@@ -40,7 +41,7 @@ export class ModelQueryService {
 		return new Promise<Response>((resolve) => {
 			this.http.post<Response>(url, body, options).subscribe({
 				next: (answer: Response) => resolve(answer),
-				error: () => resolve({ response: [LOREM_IPSUM] }),
+				error: () => resolve({ response: [LOREM_IPSUM], additional_info: '' }),
 			})
 		})
 	}

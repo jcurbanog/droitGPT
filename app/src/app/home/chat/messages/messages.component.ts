@@ -7,6 +7,7 @@ export interface Message {
 	text: string[]
 	speaker: 'user' | 'bot'
 	index: number
+	additionalInfo: string[]
 }
 @Component({
 	selector: 'app-messages',

@@ -11,6 +11,17 @@
 	<span class="message_content">
 		{{ message.text[message.index] }}
 	</span>
+	@if (message.additionalInfo[message.index]) {
+	<div class="message_footer">
+		<div class="icon moreInfo" [ngClass]="showMoreInfo ? '-up' : '-down'" (click)="showMoreInfo = !showMoreInfo">
+			<ng-container *ngTemplateOutlet="arrow"></ng-container>
+		</div>
+	</div>
+	} @if (showMoreInfo) {
+	<span class="message_content -footer">
+		{{ message.additionalInfo[message.index] }}
+	</span>
+	}
 </div>
 @if (message.text.length > 1) {
 <div class="button_wrapper">
@@ -68,7 +79,7 @@
 </ng-template>
 
 <ng-template #arrow>
-	<svg class="icon" width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<svg width="18px" height="18px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
 		<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
 		<g id="SVGRepo_iconCarrier">
