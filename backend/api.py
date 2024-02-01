@@ -30,13 +30,13 @@ model_response = api.model(
     {"response": fields.List(fields.String), "additional_info": fields.String},
 )
 
-retrieval_chain = None
+assistant = None
 
 
 def lazy_init_retrieval_chain():
-    global retrieval_chain
-    if retrieval_chain is None:
-        retrieval_chain = droitGPT_init()
+    global assistant
+    if assistant is None:
+        assistant = droitGPT_init()
 
 
 @api.route("/single_response")
@@ -47,7 +47,7 @@ class SingleResponse(Resource):
         lazy_init_retrieval_chain()
         input = api.payload.get("input")
         conversation = api.payload.get("conversation")
-        response, additional_info = retrieval_chain.answer(input=input, conversation=conversation)
+        response, additional_info = assistant.answer(input=input, conversation=conversation)
         return {
             "response": response,
             "additional_info": additional_info,
