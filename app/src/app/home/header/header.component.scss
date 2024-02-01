@@ -1,22 +1,30 @@
+@use 'color';
+
 :host {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 	align-items: center;
-	gap: 12px;
 	padding: 12px 12px;
 }
 
 .title {
+	display: flex;
 	font-size: 32px;
+	justify-content: center;
 	font-weight: bold;
+}
+
+.menuIcon {
+	display: flex;
+	cursor: pointer;
+
+	&:hover path {
+		stroke: color.$whiteLightest;
+	}
 }
 
 @media screen and (min-width: 1200px) {
 	:host {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		align-items: center;
 		height: 32px;
 	}
 

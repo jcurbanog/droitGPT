@@ -35,8 +35,8 @@ export class ChatComponent {
 	@ViewChild('messagesWrapper') public messagesWrapper?: ElementRef
 
 	@Input({ required: true }) public form!: FormGroup<QueryForm>
+	@Input({ required: true }) public messages!: Message[]
 
-	protected messages: Message[] = []
 	protected loading: boolean = false
 	protected defaultInputs: string[] = DEFAULT_INPUTS
 

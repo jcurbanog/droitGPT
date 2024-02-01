@@ -8,8 +8,7 @@ export interface Response {
 	additional_info: string
 }
 
-const LOREM_IPSUM =
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. '
+const DEFAULT_ERROR = "J'ai rencontré des difficultés techniques. Veuillez réessayer ultérieurement."
 
 const PORT = process.env['PORT'] || 5000
 
@@ -41,7 +40,7 @@ export class ModelQueryService {
 		return new Promise<Response>((resolve) => {
 			this.http.post<Response>(url, body, options).subscribe({
 				next: (answer: Response) => resolve(answer),
-				error: () => resolve({ response: [LOREM_IPSUM], additional_info: '' }),
+				error: () => resolve({ response: [DEFAULT_ERROR], additional_info: '' }),
 			})
 		})
 	}
