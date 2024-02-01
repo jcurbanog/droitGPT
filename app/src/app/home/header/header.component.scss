@@ -1,47 +1,43 @@
+@use 'color';
+
 :host {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
 	align-items: center;
-	gap: 12px;
+	padding: 12px 12px;
 }
 
 .title {
+	display: flex;
 	font-size: 32px;
+	justify-content: center;
 	font-weight: bold;
 }
 
-.label {
-	display: none;
+.menuIcon {
+	display: flex;
+	cursor: pointer;
+
+	&:hover path {
+		stroke: color.$whiteLightest;
+	}
+
+	&.-disabled {
+		cursor: not-allowed;
+		path {
+			stroke: color.$whiteDarkest;
+		}
+	}
 }
 
 @media screen and (min-width: 1200px) {
 	:host {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		align-items: center;
 		height: 32px;
-		padding: 12px 12px;
-	}
-
-	.label {
-		display: block;
-	}
-
-	.empty {
-		grid-column: 1;
 	}
 
 	.title {
 		display: flex;
 		grid-column: 2;
 		justify-content: center;
-	}
-	.selector {
-		display: flex;
-		grid-column: 3;
-		justify-content: flex-end;
-		align-items: center;
-		gap: 10px;
 	}
 }

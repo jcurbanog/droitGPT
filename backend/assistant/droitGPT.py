@@ -197,7 +197,7 @@ class droitGPT:
                 for doc in relevant_docs
             ]
         )
-        return "Vous pouvez également vérifier:\n\n" + parsed
+        return "Vous pouvez également vérifier :\n\n" + parsed
 
     def enrich_input(self, input: str, relevant_docs: List[Document]) -> str:
         if not relevant_docs:

@@ -1,5 +1,5 @@
 <div class="container">
 	@for (message of messages; track $index) {
-	<app-message [message]="message"></app-message>
+	<app-message [message]="message" (regenerateResponse)="regenerateResponse.emit($index)"></app-message>
 	}
 </div>

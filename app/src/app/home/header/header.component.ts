@@ -1,17 +1,16 @@
-import { Component, Input } from '@angular/core'
-import { FormGroup, ReactiveFormsModule } from '@angular/forms'
-import { QueryForm } from '../home.component'
+import { CommonModule } from '@angular/common'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 
-export type Mode = 'Single' | 'Multiple'
 @Component({
 	selector: 'app-header',
 	standalone: true,
-	imports: [ReactiveFormsModule],
+	imports: [CommonModule],
 	templateUrl: './header.component.html',
 	styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-	@Input({ required: true }) public form!: FormGroup<QueryForm>
+	@Input({ required: true }) public showMenu!: boolean
+	@Input({ required: true }) public loading!: boolean
 
-	protected options: Mode[] = ['Single', 'Multiple']
+	@Output() public showMenuChange = new EventEmitter<boolean>()
 }

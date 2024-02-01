@@ -1,12 +1,27 @@
-<div class="empty"></div>
-<span class="title">DroitGPT</span>
-<div class="selector">
-	<span class="label">Mode: </span>
-	<form [formGroup]="form">
-		<select formControlName="mode">
-			@for (option of options; track $index) {
-			<option [ngValue]="option">{{ option }} Response</option>
-			}
-		</select>
-	</form>
+<div (click)="showMenuChange.emit(loading ? showMenu : !showMenu)">
+	<ng-container *ngTemplateOutlet="menuIcon"></ng-container>
 </div>
+<span class="title">DroitGPT</span>
+
+<ng-template #menuIcon>
+	<svg
+		class="menuIcon"
+		[class.-disabled]="loading"
+		width="25px"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+		<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+		<g id="SVGRepo_iconCarrier">
+			<path
+				d="M4 6H20M4 12H20M4 18H20"
+				stroke="#d1d1d1"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			></path>
+		</g>
+	</svg>
+</ng-template>

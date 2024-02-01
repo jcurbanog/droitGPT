@@ -1,6 +1,95 @@
 @use 'color';
 
+:host {
+	height: 100%;
+}
+
+.blur {
+	position: fixed;
+	width: 0vw;
+	height: 100vh;
+	z-index: 1;
+	background-color: black;
+	opacity: 0.5;
+
+	&.-open {
+		width: 100vw;
+	}
+}
+
+.sideMenu {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	position: fixed;
+	height: 100%;
+	z-index: 2;
+	width: 0vw;
+	overflow-x: hidden;
+	transition: all 0.3s;
+	background-color: color.$blackDarkest;
+	padding-top: 16px;
+	color: color.$whiteNormal;
+
+	&.-open {
+		padding: 16px 24px;
+		width: 70vw;
+		border-right: 1px solid color.$blackDarker;
+	}
+
+	&_icon {
+		cursor: pointer;
+
+		&:hover path {
+			stroke: color.$whiteLightest;
+		}
+	}
+
+	&_header {
+		display: flex;
+		justify-content: flex-end;
+	}
+}
+
+.newChat {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 12px;
+	border-radius: 6px;
+	transition: all 0.3s;
+	cursor: pointer;
+	white-space: nowrap;
+
+	& span {
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+	&:hover {
+		background-color: color.$blackDarker;
+		color: color.$whiteLightest;
+
+		& path {
+			stroke: color.$whiteLightest;
+			transition: all 0.3s;
+		}
+	}
+
+	&.-active {
+		background-color: color.$blackLightest;
+		color: color.$whiteLightest;
+	}
+}
+
+.chats {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
 .container {
+	width: 100%;
 	height: 100%;
 	background-color: color.$blueDarkest;
 	display: flex;
@@ -11,4 +100,12 @@
 	color: color.$whiteLightest;
 	background-color: color.$blueDarkest;
 	align-self: center;
+}
+
+@media screen and (min-width: 800px) {
+	.sideMenu {
+		&.-open {
+			width: 20vw;
+		}
+	}
 }

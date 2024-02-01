@@ -18,7 +18,7 @@
 	--text-area-width: calc(100vw - 2 * (#{variables.$chatLateralPadding}));
 	border: 1px solid color.$blackLightest;
 	border-radius: 8px;
-	background-color: color.$blackDarkest;
+	background-color: color.$blackDarker;
 	width: var(--text-area-width);
 	max-width: var(--text-area-width);
 	max-height: 500px;

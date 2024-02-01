@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { Message } from '../messages.component'
 import { CommonModule } from '@angular/common'
 
@@ -11,6 +11,10 @@ import { CommonModule } from '@angular/common'
 })
 export class MessageComponent {
 	@Input({ required: true }) public message!: Message
+
+	@Output() public regenerateResponse = new EventEmitter<void>()
+
+	protected showMoreInfo = false
 
 	protected increaseIndex(): void {
 		if (this.message.index < this.message.text.length - 1) {
