@@ -62,9 +62,10 @@ French Legal Codes in markdown format
 
 - Python 3.10 or higher required
 - [Install Node.JS](https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-overview) 18.13 or higher
-- Set up a python virtual environment `python -m venv venv && source venv/bin/activate`
-- Do `cat backend/requirements.txt | xargs -n 1 pip install`. if some packages could not be installed due to the version, do it manually
-- Finally, after leaving the `venv` using `deactivate`, you can run the app at the root directory through `make run`
+- Set up a python virtual environment at the backend directory `cd backend && python -m venv venv && source venv/bin/activate`
+- Do `cat requirements.txt | xargs -n 1 pip install`. if some packages could not be installed due to the version, do it manually. When the packages have been succesfully installed, leave the `venv` using `deactivate` and go back to the root of the project
+- Go to the front-end app directory to install the dependencies `cd app && npm install`
+- Finally, you can run the app at the root directory through `make run`
 
 # Other Resources
 
