@@ -1,6 +1,6 @@
 # droitGPT
 
-AI assistant awared of French Legal Codes
+AI assistant specialized on French Legal Codes (labor, transports and electoral codes)
 
 # Corpus
 
@@ -43,18 +43,17 @@ French Legal Codes in markdown format
 
   - Best performance in the context of multilingual models given the constrain of GPU RAM memory
 
-- Prototype Framework: [Langchain](https://python.langchain.com/docs/get_started/introduction)
+  - Prototype Framework: [Langchain](https://python.langchain.com/docs/get_started/introduction)
   - Allows development of applications powered by language models
 
 # Limitations
 
-- LLM and Sentence Transformer model: The hardware limitations do not allow the use of much 'larger' language models
+  - LLM and Sentence Transformer model: The hardware limitations do not allow the use of much 'larger' language models
   - The model may not properly reply in French (as requested).
   - The quality of the requested context may not be good.
 
 # TODO
 
-- Prompt Engineering for improving further more the performance
 - Use a much larger language model pre-trained in a much larger French corpus
 - Use Ollama embeddings model for FAISS
 
@@ -67,8 +66,6 @@ French Legal Codes in markdown format
 - Finally, after leaving the `venv` using `deactivate`, you can run the app at the root directory through `make run`
 
 # Other Resources
-
-- [LangChain Quickstart](https://python.langchain.com/docs/get_started/quickstart)
 
 - [LangChain - FAISS Integration](https://python.langchain.com/docs/integrations/vectorstores/faiss)
 
