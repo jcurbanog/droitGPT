@@ -2,6 +2,16 @@
 
 AI assistant specialized on French Legal Codes (labor, transports and electoral codes)
 
+## Out of inspirations? Just choose one of the questions by default
+![Home-view](/imgs/droitGPT-home.png)
+
+## Get your answer plus the references
+![Home-view](/imgs/droitGPT-answer.png)
+
+## Create new conversations or retake existing ones
+![Home-view](/imgs/droitGPT-newchat.png)
+
+
 # Corpus
 
 French Legal Codes in markdown format
