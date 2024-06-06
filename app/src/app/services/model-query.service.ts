@@ -10,7 +10,7 @@ export interface Response {
 
 const DEFAULT_ERROR = "J'ai rencontré des difficultés techniques. Veuillez réessayer ultérieurement."
 
-const PORT = process.env['PORT'] || 5000
+// const PORT = process.env['PORT'] || 5000
 
 @Injectable({
 	providedIn: 'root',
@@ -24,8 +24,8 @@ export class ModelQueryService {
 
 	constructor(private http: HttpClient) {
 		// Set apiUrl based on the host where the app is running
-		const host = window.location.host.split(':')[0]
-		this.apiUrl = `http://${host}:${PORT}/`
+		// const host = window.location.host.split(':')[0]
+		this.apiUrl = `/`
 	}
 
 	public request(endpoint: string, query: string, messages: Message[]): Promise<Response> {
