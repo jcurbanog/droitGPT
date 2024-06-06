@@ -1,0 +1,8 @@
+{
+    "/": {
+        "target": "https://xjq18bwz-5000.uks1.devtunnels.ms/",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}
