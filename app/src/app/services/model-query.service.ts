@@ -25,7 +25,7 @@ export class ModelQueryService {
 	constructor(private http: HttpClient) {
 		// Set apiUrl based on the host where the app is running
 		// const host = window.location.host.split(':')[0]
-		this.apiUrl = `/`
+		this.apiUrl = `https://xjq18bwz-5000.uks1.devtunnels.ms/`
 	}
 
 	public request(endpoint: string, query: string, messages: Message[]): Promise<Response> {
